@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Divya Darshan - AI Travel Planner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-800 min-h-screen">
+  <div class="max-w-7xl mx-auto p-6 md:p-10">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <p class="text-xs font-black tracking-widest text-slate-400 uppercase">Divya Darshan</p>
+        <h1 class="text-2xl md:text-3xl font-black">AI Travel Planner</h1>
+        <p class="text-sm text-slate-500 mt-1">Professional, real-data itinerary + booking shortcuts</p>
+      </div>
+      <a href="code.html" class="text-sm font-black text-orange-600 hover:underline">Back to Dashboard</a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <section class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold">Plan Generator</h2>
+          <span class="text-[11px] font-black text-slate-400">v1 · real data</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <label class="text-sm">Temple
+            <select id="tp-temple" class="mt-1 w-full rounded-lg border-slate-200">
+              <option value="manjunatha">Dharmasthala Manjunatha</option>
+              <option value="tirupati">Tirupati Venkateswara</option>
+              <option value="krishna">Udupi Krishna</option>
+              <option value="kukke">Kukke Subramanya</option>
+            </select>
+          </label>
+          <label class="text-sm">Date
+            <input id="tp-date" type="date" class="mt-1 w-full rounded-lg border-slate-200" />
+          </label>
+          <label class="text-sm">Time
+            <select id="tp-time" class="mt-1 w-full rounded-lg border-slate-200">
+              <option value="morning">Morning</option>
+              <option value="afternoon">Afternoon</option>
+              <option value="evening">Evening</option>
+            </select>
+          </label>
+          <label class="text-sm">Pilgrims
+            <input id="tp-pilgrims" type="number" min="1" value="2" class="mt-1 w-full rounded-lg border-slate-200" />
+          </label>
+          <label class="text-sm">Budget
+            <select id="tp-budget" class="mt-1 w-full rounded-lg border-slate-200">
+              <option value="budget">Budget</option>
+              <option value="mid" selected>Mid-range</option>
+              <option value="premium">Premium</option>
+            </select>
+          </label>
+          <label class="text-sm">Nights
+            <input id="tp-nights" type="number" min="1" value="1" class="mt-1 w-full rounded-lg border-slate-200" />
+          </label>
+        </div>
+        <label class="text-sm block mt-3">Start location (for route)
+          <input id="tp-origin" type="text" placeholder="Your city or current location (eg. Mangalore)" class="mt-1 w-full rounded-lg border-slate-200" />
+        </label>
+        <label class="text-sm block mt-3">Extra stops (comma separated)
+          <input id="tp-stops" type="text" placeholder="Bahubali Hill, museum, market" class="mt-1 w-full rounded-lg border-slate-200" />
+        </label>
+        <button onclick="generatePlan()" class="mt-4 bg-orange-600 text-white font-bold px-5 py-3 rounded-xl hover:bg-orange-700">Generate Real Plan</button>
+
+        <div id="tp-output" class="mt-5 space-y-3"></div>
+
+      </section>
+
+      <section class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-bold">AI Assistant</h2>
+          <span class="text-[11px] font-black text-slate-400">Groq-backed</span>
+        </div>
+        <div id="chat" class="overflow-y-auto space-y-2 bg-slate-50 rounded-xl p-3 max-h-[220px] border border-slate-100"></div>
+        <div class="mt-3 flex gap-2">
+          <input id="chat-input" class="flex-1 rounded-lg border-slate-200" placeholder="Ask anything: route, hotels, timing, dress code..." />
+          <button onclick="askAI()" class="bg-orange-600 text-white font-bold px-4 rounded-lg">Send</button>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+          <div class="p-4 flex flex-wrap items-center justify-between gap-3 border-b border-slate-100">
+            <div>
+              <p class="text-xs font-black text-slate-500 uppercase tracking-widest">Route Map</p>
+              <p class="text-sm font-bold text-slate-800">Shortest route + open traffic view</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="openGoogleMapsTraffic()" class="text-[11px] font-black px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800">Google Maps (traffic)</button>
+            </div>
+          </div>
+          <div class="bg-slate-50">
+            <iframe id="gmap" title="Route map" src="about:blank" style="height: 300px; width: 100%; border: 0;" loading="lazy"></iframe>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Full-width bottom timeline -->
+    <section class="mt-8 bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+      <div class="p-6 md:p-7 flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 bg-gradient-to-r from-orange-50 to-white">
+        <div>
+          <p class="text-xs font-black text-slate-500 uppercase tracking-widest">Itinerary Chart</p>
+          <p class="text-base font-black text-slate-900 mt-1">Visual timeline (downloadable)</p>
+          <p class="text-sm text-slate-500 mt-1">Use this as a quick “at-a-glance” plan for your day.</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="downloadTimelinePNG()" class="text-[12px] font-black px-5 py-2.5 rounded-2xl bg-orange-600 text-white hover:bg-orange-700">Download PNG</button>
+          <button onclick="downloadPlanJSON()" class="text-[12px] font-black px-5 py-2.5 rounded-2xl bg-slate-900 text-white hover:bg-slate-800">Download JSON</button>
+        </div>
+      </div>
+      <div class="p-6 md:p-8 bg-[radial-gradient(circle_at_20%_20%,rgba(234,88,12,0.08),transparent_45%),radial-gradient(circle_at_80%_40%,rgba(15,23,42,0.06),transparent_50%)]">
+        <canvas id="timeline" width="1400" height="420" class="w-full rounded-2xl border border-slate-100 bg-white shadow-sm"></canvas>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const API = window.location.port === '3001' ? '' : 'http://127.0.0.1:3001';
+    // Keep end-user UI clean: do not show backend warnings (Google/OSM).
+    const SHOW_DEBUG_WARNINGS = false;
+
+    const templeMap = {
+      manjunatha: 'Dharmasthala Manjunatha',
+      tirupati: 'Tirupati Venkateswara',
+      krishna: 'Udupi Krishna',
+      kukke: 'Kukke Subramanya'
+    };
+
+    function esc(s) { return (s || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    let _lastPlan = null;
+    let _chatHistory = [];
+
+    async function geocode(q) {
+      const res = await fetch(API + '/api/geo?q=' + encodeURIComponent(q));
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Geocode failed');
+      return data;
+    }
+
+    function setGoogleEmbedMap({ destLat, destLon, destText }) {
+      const frame = document.getElementById('gmap');
+      if (!frame) return;
+      const q = (Number.isFinite(destLat) && Number.isFinite(destLon)) ? `${destLat},${destLon}` : (destText || '');
+      frame.src = `https://www.google.com/maps?q=${encodeURIComponent(q)}&z=14&output=embed`;
+    }
+
+    function openGoogleMapsTraffic() {
+      if (!_lastPlan?.geo) return;
+      const origin = document.getElementById('tp-origin').value.trim();
+      const dest = _lastPlan.geo.displayName || (templeMap[document.getElementById('tp-temple').value] || '');
+      const url = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(dest) + (origin ? ('&origin=' + encodeURIComponent(origin)) : '');
+      window.open(url, '_blank', 'noopener');
+    }
+
+    function addChat(role, text) {
+      const c = document.getElementById('chat');
+      const cls = role === 'user' ? 'bg-orange-600 text-white ml-8' : 'bg-white border border-slate-100 mr-8';
+      const safe = esc(text).replace(/\n/g, '<br/>');
+      c.insertAdjacentHTML('beforeend', `<div class="p-2 rounded-lg text-sm leading-relaxed ${cls}">${safe}</div>`);
+      c.scrollTop = c.scrollHeight;
+      const r = role === 'ai' ? 'assistant' : 'user';
+      _chatHistory.push({ role: r, content: String(text || '') });
+      if (_chatHistory.length > 30) _chatHistory = _chatHistory.slice(-30);
+    }
+
+    function drawTimeline(plan) {
+      const canvas = document.getElementById('timeline');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Subtle header band
+      ctx.fillStyle = '#fff7ed';
+      ctx.fillRect(0, 0, canvas.width, 72);
+      ctx.fillStyle = '#0f172a';
+      ctx.font = '800 22px system-ui';
+      ctx.fillText('Trip Timeline', 20, 32);
+      ctx.font = '13px system-ui';
+      ctx.fillStyle = '#475569';
+      ctx.fillText(plan?.summary || '', 20, 52);
+
+      const items = Array.isArray(plan?.itinerary) ? plan.itinerary : [];
+      const left = 56, top = 130, width = canvas.width - 112;
+      ctx.strokeStyle = '#ea580c';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.moveTo(left, top);
+      ctx.lineTo(left + width, top);
+      ctx.stroke();
+
+      const n = Math.max(1, items.length);
+      items.forEach((it, idx) => {
+        const x = left + (width * (idx / Math.max(1, n - 1)));
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#ea580c';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(x, top, 10, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#0f172a';
+        ctx.font = '800 13px system-ui';
+        ctx.fillText(String(it.time || '').slice(0, 22), x - 52, top + 28);
+        ctx.fillStyle = '#334155';
+        ctx.font = '13px system-ui';
+        const text = String(it.activity || '');
+        ctx.fillText(text.length > 40 ? text.slice(0, 40) + '…' : text, x - 52, top + 50);
+      });
+    }
+
+    function downloadTimelinePNG() {
+      const canvas = document.getElementById('timeline');
+      const a = document.createElement('a');
+      a.href = canvas.toDataURL('image/png');
+      a.download = 'divyadarshan_itinerary.png';
+      a.click();
+    }
+    function downloadPlanJSON() {
+      const blob = new Blob([JSON.stringify(_lastPlan || {}, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'divyadarshan_plan.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    async function generatePlan() {
+      const templeKey = document.getElementById('tp-temple').value;
+      const body = {
+        templeKey,
+        templeName: templeMap[templeKey],
+        date: document.getElementById('tp-date').value,
+        timeOfDay: document.getElementById('tp-time').value,
+        pilgrims: Number(document.getElementById('tp-pilgrims').value || 1),
+        budget: document.getElementById('tp-budget').value,
+        nights: Number(document.getElementById('tp-nights').value || 1),
+        origin: document.getElementById('tp-origin').value,
+        extraStops: document.getElementById('tp-stops').value.split(',').map(x => x.trim()).filter(Boolean),
+        special: {}
+      };
+      const out = document.getElementById('tp-output');
+      out.innerHTML = '<div class="text-sm text-slate-500">Generating...</div>';
+      try {
+        const res = await fetch(API + '/api/travel/plan', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed');
+
+        _lastPlan = data;
+        setGoogleEmbedMap({ destLat: data.geo?.lat, destLon: data.geo?.lon, destText: body.templeName });
+
+        const hotels = (data.recommendedHotels || []).slice(0,5);
+        const stops = (data.recommendedStops || []).slice(0,5);
+        const bookLink = (name) => `https://www.google.com/travel/hotels?q=${encodeURIComponent(name + ' ' + (templeMap[templeKey] || ''))}`;
+        const dineLink = (name) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('restaurants near ' + name)}`;
+        drawTimeline(data);
+
+        const route = data.routeInfo;
+        const routeHtml = route ? `
+          <div class="p-3 bg-slate-50 border border-slate-100 rounded-xl text-sm">
+            <p class="font-extrabold text-slate-800">Route (live traffic)</p>
+            <p class="text-slate-600 mt-1">
+              ${esc(route.distance_text || '')}
+              ${route.duration_in_traffic_text ? ` · ${esc(route.duration_in_traffic_text)} (with traffic)` : ''}
+              ${(!route.duration_in_traffic_text && route.duration_text) ? ` · ${esc(route.duration_text)}` : ''}
+            </p>
+            ${route.googleMapsUrl ? `<a class="inline-block mt-2 text-xs font-black text-orange-700 hover:underline" href="${esc(route.googleMapsUrl)}" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>` : ''}
+          </div>
+        ` : '';
+
+        out.innerHTML = `
+          <div class="p-3 bg-orange-50 border border-orange-100 rounded-xl text-sm">${esc(data.summary || '')}</div>
+          ${data.aiWarning ? `<div class="text-xs text-amber-700 bg-amber-50 border border-amber-100 p-2 rounded-lg">${esc(data.aiWarning)}</div>` : ''}
+          ${''}
+          ${routeHtml}
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="bg-white border border-slate-100 rounded-xl p-3">
+              <p class="text-xs font-black text-slate-500 uppercase mb-2">Hotels</p>
+              ${hotels.length ? `
+                <div class="space-y-2">
+                  ${hotels.map(h => `
+                    <div class="rounded-2xl border border-slate-100 bg-gradient-to-br from-white to-slate-50 overflow-hidden hover:shadow-md transition-shadow">
+                      <div class="p-3 flex gap-3 items-start">
+                        <div class="w-16 h-16 rounded-xl overflow-hidden bg-orange-50 border border-orange-100 flex items-center justify-center flex-shrink-0">
+                          ${h.photoUrl ? `<img src="${h.photoUrl}" class="w-full h-full object-cover" alt="${esc(h.name)}" />` : `<span class="text-orange-600 font-black text-lg">${esc((h.name || 'H').trim().slice(0,1).toUpperCase())}</span>`}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <a class="block text-sm font-extrabold text-slate-800 hover:text-orange-700 truncate" href="${h.mapsUrl}" target="_blank" rel="noopener noreferrer">${esc(h.name)}</a>
+                          <div class="flex flex-wrap gap-2 mt-1">
+                            ${typeof h.rating === 'number' ? `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">${esc(String(h.rating))}★ ${h.ratings_total ? `(${esc(String(h.ratings_total))})` : ''}</span>` : (h.stars ? `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700">${esc(String(h.stars))}★ official</span>` : `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">No rating</span>`)}
+                            ${typeof h.price_level === 'number' ? `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">Price: ${'₹'.repeat(Math.max(1, Math.min(4, h.price_level + 1)))}</span>` : ''}
+                            ${typeof h.distance_km === 'number' ? `<span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-slate-50 text-slate-600">${h.distance_km} km</span>` : ''}
+                          </div>
+                          ${h.address ? `<p class="text-[11px] text-slate-500 mt-1 truncate">${esc(h.address)}</p>` : ''}
+                          ${(h.phone || h.website) ? `<p class="text-[11px] text-slate-400 mt-1">${h.phone ? `☎ ${esc(h.phone)}` : ''}${h.phone && h.website ? ' · ' : ''}${h.website ? `🌐 ${esc(h.website)}` : ''}</p>` : ''}
+                        </div>
+                      </div>
+                      <div class="px-3 pb-3 flex gap-2">
+                        <a class="flex-1 text-center text-[11px] font-black bg-orange-600 text-white py-2 rounded-xl hover:bg-orange-700 transition-colors" href="${bookLink(h.name)}" target="_blank" rel="noopener noreferrer">Book room</a>
+                        <a class="px-4 text-center text-[11px] font-black bg-white border border-slate-200 text-slate-700 py-2 rounded-xl hover:bg-slate-50 transition-colors" href="${dineLink(h.name)}" target="_blank" rel="noopener noreferrer">Dine</a>
+                      </div>
+                    </div>
+                  `).join('')}
+                </div>
+              ` : '<p class="text-xs text-slate-500">No hotels found</p>'}
+            </div>
+            <div class="bg-white border border-slate-100 rounded-xl p-3">
+              <p class="text-xs font-black text-slate-500 uppercase mb-2">Nearby Places</p>
+              ${stops.length ? `
+                <div class="space-y-2">
+                  ${stops.map(s => `
+                    <a class="flex items-center gap-3 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:bg-white hover:shadow-sm transition-all" href="${s.mapsUrl}" target="_blank" rel="noopener noreferrer">
+                      <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-200 flex items-center justify-center flex-shrink-0">
+                        ${s.photoUrl ? `<img src="${s.photoUrl}" class="w-full h-full object-cover" alt="${esc(s.name)}" />` : `<span class="text-slate-600 font-black">${esc((s.name || 'P').trim().slice(0,1).toUpperCase())}</span>`}
+                      </div>
+                      <div class="min-w-0">
+                        <p class="text-sm font-extrabold text-slate-800 truncate">${esc(s.name)}</p>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                          ${esc(s.type || 'place')}
+                          ${typeof s.rating === 'number' ? ` · ${esc(String(s.rating))}★` : ''}
+                        </p>
+                      </div>
+                    </a>
+                  `).join('')}
+                </div>
+              ` : '<p class="text-xs text-slate-500">No places found</p>'}
+            </div>
+          </div>
+          <div class="bg-white border border-slate-100 rounded-xl p-3">
+            <p class="text-xs font-black text-slate-500 uppercase mb-2">Itinerary</p>
+            ${(data.itinerary || []).map(i => `<div class="mb-2"><p class="text-xs font-bold text-orange-700">${esc(i.time || '')}</p><p class="text-sm font-semibold">${esc(i.activity || '')}</p><p class="text-xs text-slate-500">${esc(i.reason || '')}</p></div>`).join('')}
+          </div>
+        `;
+      } catch (e) {
+        out.innerHTML = `<div class="text-sm text-red-600">${esc(e.message)}</div>`;
+      }
+    }
+
+    // (chat renderer moved above; supports multiline)
+
+    async function askAI() {
+      const input = document.getElementById('chat-input');
+      const message = input.value.trim();
+      if (!message) return;
+      input.value = '';
+      addChat('user', message);
+      try {
+        const context = {
+          temple: templeMap[document.getElementById('tp-temple').value],
+          budget: document.getElementById('tp-budget').value,
+          date: document.getElementById('tp-date').value,
+          origin: document.getElementById('tp-origin').value,
+          lastPlan: _lastPlan ? {
+            summary: _lastPlan.summary,
+            sourceUrl: _lastPlan.sourceUrl,
+            osmWarning: _lastPlan.osmWarning,
+            hotels: (_lastPlan.recommendedHotels || []).slice(0, 6),
+            places: (_lastPlan.recommendedStops || []).slice(0, 6),
+            itinerary: (_lastPlan.itinerary || []).slice(0, 8)
+          } : null
+        };
+        const res = await fetch(API + '/api/assistant', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, context, history: _chatHistory.slice(-12) })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Assistant failed');
+        addChat('ai', data.reply || 'No response');
+      } catch (e) {
+        addChat('ai', 'Assistant error: ' + e.message);
+      }
+    }
+  </script>
+</body>
+</html>
+

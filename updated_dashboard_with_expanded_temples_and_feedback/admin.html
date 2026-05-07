@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Divya Darshan | Admin Panel</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#E65100",
+                        surface: "#f9f9fb",
+                        "on-surface": "#2d3338",
+                    },
+                    fontFamily: {
+                        headline: ["Manrope"],
+                        body: ["Inter"],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+    <main class="flex-grow flex items-center justify-center p-6 flex-col">
+        <span class="material-symbols-outlined text-[#E65100] text-6xl mb-6" style="font-variation-settings: 'FILL' 1;">shield</span>
+        <h1 class="text-3xl font-extrabold font-headline mb-4">Admin Access Restricted</h1>
+        <p class="text-slate-500 mb-8 max-w-md text-center">You do not have the required permissions to view the admin dashboard. Please contact system administrators if you need access.</p>
+        <a href="code.html" class="bg-[#E65100] text-white px-8 py-4 rounded-lg font-bold shadow-lg hover:bg-[#BF360C] transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined">arrow_back</span> Return to Dashboard
+        </a>
+    </main>
+</body>
+</html>
