@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Booking Confirmation - Divya Darshan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#455068",
+                    "surface-tint": "#f97316",
+                    "surface-container-highest": "#dde3e9",
+                    "surface-container-low": "#f2f4f6",
+                    "on-tertiary-fixed": "#333d55",
+                    "error-dim": "#4f0116",
+                    "inverse-surface": "#0c0e10",
+                    "surface-bright": "#f9f9fb",
+                    "surface-dim": "#d3dbe2",
+                    "secondary-dim": "#535256",
+                    "on-secondary-container": "#525155",
+                    "inverse-on-surface": "#9c9d9f",
+                    "error": "#9e3f4e",
+                    "secondary": "#605e62",
+                    "secondary-fixed-dim": "#d6d3d8",
+                    "background": "#f9f9fb",
+                    "surface": "#f9f9fb",
+                    "on-background": "#2d3338",
+                    "on-error": "#fff7f7",
+                    "outline-variant": "#acb3b8",
+                    "on-secondary": "#fbf8fc",
+                    "primary-dim": "#ea580c",
+                    "primary": "#f97316",
+                    "secondary-container": "#e4e1e6",
+                    "tertiary-fixed": "#d5dffd",
+                    "primary-fixed-dim": "#ffedd5",
+                    "on-error-container": "#782232",
+                    "tertiary": "#545f78",
+                    "inverse-primary": "#fbbf24",
+                    "on-tertiary": "#f9f8ff",
+                    "error-container": "#ff8b9a",
+                    "on-surface": "#2d3338",
+                    "secondary-fixed": "#e4e1e6",
+                    "on-primary-container": "#7c2d12",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed-variant": "#9a3412",
+                    "on-primary-fixed": "#431407",
+                    "tertiary-dim": "#49536b",
+                    "on-tertiary-fixed-variant": "#4f5a72",
+                    "primary-container": "#ffedd5",
+                    "surface-variant": "#dde3e9",
+                    "tertiary-fixed-dim": "#c7d1ee",
+                    "on-secondary-fixed": "#3f3f43",
+                    "on-surface-variant": "#596065",
+                    "surface-container": "#ebeef2",
+                    "outline": "#757c81",
+                    "surface-container-high": "#e4e9ee",
+                    "primary-fixed": "#ffedd5",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#d5dffd",
+                    "on-secondary-fixed-variant": "#5c5b5f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.25rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-manrope { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl docked full-width top-0 sticky z-50 shadow-[0px_12px_32px_rgba(249,115,22,0.06)]">
+<div class="flex justify-between items-center w-full px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-bold tracking-tight text-primary dark:text-orange-500 font-manrope">
+                Divya Darshan
+            </div>
+<nav class="hidden md:flex gap-8 items-center font-manrope text-sm font-medium tracking-tight">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors duration-300" href="#">Live Status</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors duration-300" href="#">Tickets</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors duration-300" href="#">Parking</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors duration-300" href="#">Emergency</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden lg:block text-slate-600 font-manrope text-sm font-medium hover:text-primary">Admin Dashboard</button>
+<div class="h-8 w-8 rounded-full overflow-hidden flex items-center justify-center text-primary bg-surface-container">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-semibold scale-95 transition-transform active:opacity-80">Logout</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center py-12 px-4 bg-surface">
+<div class="max-w-xl w-full">
+<!-- Confirmation Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0px_12px_32px_rgba(249,115,22,0.06)] overflow-hidden">
+<!-- Success Header -->
+<div class="p-8 text-center bg-primary/5">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h1 class="text-2xl font-extrabold text-on-primary-container font-manrope mb-2">Booking Confirmed</h1>
+<p class="text-on-surface-variant text-sm font-body">Your spiritual journey is secured. Please present the QR code at the entry.</p>
+</div>
+<!-- Ticket Details -->
+<div class="p-8 space-y-6">
+<div class="grid grid-cols-2 gap-y-6 gap-x-4">
+<div>
+<label class="text-xs uppercase tracking-widest text-on-surface-variant font-bold block mb-1">Temple Name</label>
+<p class="text-on-surface font-semibold font-manrope">Sri Venkateswara Swamy</p>
+</div>
+<div>
+<label class="text-xs uppercase tracking-widest text-on-surface-variant font-bold block mb-1">Booking ID</label>
+<p class="text-on-surface font-semibold font-manrope">#DD-8829412</p>
+</div>
+<div>
+<label class="text-xs uppercase tracking-widest text-on-surface-variant font-bold block mb-1">Date</label>
+<p class="text-on-surface font-semibold font-manrope">October 24, 2024</p>
+</div>
+<div>
+<label class="text-xs uppercase tracking-widest text-on-surface-variant font-bold block mb-1">Time Slot</label>
+<p class="text-on-surface font-semibold font-manrope">06:00 AM - 08:00 AM</p>
+</div>
+<div>
+<label class="text-xs uppercase tracking-widest text-on-surface-variant font-bold block mb-1">Number of People</label>
+<p class="text-on-surface font-semibold font-manrope">04 Pilgrims</p>
+</div>
+<div>
+<label class="text-xs uppercase tracking-widest text-on-surface-variant font-bold block mb-1">Service Type</label>
+<p class="text-on-surface font-semibold font-manrope">Special Darshan</p>
+</div>
+</div>
+<!-- QR Code Placeholder -->
+<div class="mt-8 flex flex-col items-center justify-center p-6 bg-surface-container-low rounded-lg border-2 border-dashed border-outline-variant/30">
+<div class="bg-white p-4 rounded-lg shadow-sm mb-4">
+<img alt="Entry QR Code" class="w-40 h-40" data-alt="a minimalist black and white qr code graphic on a white rounded square background representing a digital ticket" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5H3fr6o8mpGxLUhrahfAG0bQvqxB54NqEMX3hTXLlwYYSubMfzJojclKSR8c8hL3uogO2S1kV3OG0UpqWF4dVnyBaYkYDScn_VSgzd4h0SCSkvLVI-ZSKSDDzOb7a7bmZbcKKm9-kOZ1JUsO9XSFQkGkeMQ0GCiSXbYbFSFf89KDTXRsi_Ud7qQgyRYM2ck8aTGZ51Kr6Kt8_RjfpIWCmL4jQC2ecMAPAh6jiQ9_vwZIHYkdPgPSZNIsuarSV-WSZoAq0YwbTDlo"/>
+</div>
+<p class="text-xs text-on-surface-variant font-medium">Scan this at the Temple Gate</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="p-8 pt-0 flex flex-col sm:flex-row gap-4">
+<button class="flex-1 bg-primary text-on-primary font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-all hover:bg-primary-dim active:scale-95 shadow-md">
+<span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+                        Download Ticket
+                    </button>
+<button class="flex-1 bg-surface-container-high text-on-surface font-bold py-4 rounded-lg flex items-center justify-center gap-2 transition-all hover:bg-surface-variant active:scale-95">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+                        Back to Dashboard
+                    </button>
+</div>
+</div>
+<!-- Helpful Information -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-white/50 p-4 rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Reporting Time</h4>
+<p class="text-xs text-on-surface-variant">Please arrive 30 minutes before your slot.</p>
+</div>
+</div>
+<div class="bg-white/50 p-4 rounded-lg flex items-start gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="badge">badge</span>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Identity Proof</h4>
+<p class="text-xs text-on-surface-variant">Carry original Aadhar or valid Govt ID.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f9f9fb] dark:bg-slate-950 w-full py-8 mt-auto border-t border-slate-100 dark:border-slate-800">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto">
+<div class="mb-4 md:mb-0">
+<span class="font-manrope font-semibold text-slate-800 dark:text-slate-200">Divya Darshan</span>
+<p class="font-inter text-xs tracking-wide text-slate-500 mt-1">© 2024 Divya Darshan Sanctuary. All rights reserved.</p>
+</div>
+<div class="flex gap-8 font-inter text-xs tracking-wide text-slate-500">
+<a class="hover:text-primary underline underline-offset-4 opacity-80 transition-opacity" href="#">About</a>
+<a class="hover:text-primary underline underline-offset-4 opacity-80 transition-opacity" href="#">Contact</a>
+<a class="hover:text-primary underline underline-offset-4 opacity-80 transition-opacity text-primary font-medium" href="#">Terms</a>
+<a class="hover:text-primary underline underline-offset-4 opacity-80 transition-opacity" href="#">Help</a>
+</div>
+</div>
+</footer>
+</body></html>

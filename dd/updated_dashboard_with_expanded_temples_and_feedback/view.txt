@@ -1,0 +1,172 @@
+<div id="view-temple-details" class="view-section hidden pt-4 pb-24 max-w-6xl mx-auto px-4 md:px-8">
+    <button onclick="showView('view-live-status')" class="mb-6 flex items-center gap-2 text-slate-500 hover:text-primary transition-colors font-bold text-sm bg-white px-4 py-2 rounded-full shadow-sm w-fit">
+        <span class="material-symbols-outlined text-lg">arrow_back</span> Back to Live Status
+    </button>
+
+    <!-- 1. Temple Overview (Top Section) -->
+    <div class="relative w-full h-[300px] md:h-[400px] rounded-3xl overflow-hidden shadow-xl mb-8 group">
+        <img id="detail-img" src="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Temple"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 w-full p-8 flex flex-col md:flex-row justify-between items-end gap-4">
+            <div>
+                <h1 id="detail-name" class="text-4xl md:text-5xl font-extrabold text-white font-manrope mb-2 tracking-tight">Temple Name</h1>
+                <p class="text-slate-200 flex items-center gap-1 text-sm md:text-base"><span class="material-symbols-outlined text-[18px]">location_on</span> <span id="detail-loc">Location</span></p>
+            </div>
+            <div id="detail-badge-bg" class="bg-orange-500/20 backdrop-blur-md border border-orange-500/50 px-6 py-3 rounded-full flex flex-col items-center">
+                <span class="text-white text-xs font-bold uppercase tracking-widest opacity-80 mb-1">Live Crowd</span>
+                <div class="flex items-center gap-2">
+                    <span id="detail-badge-icon" class="material-symbols-outlined text-orange-400" style="font-variation-settings: 'FILL' 1;">sensors</span>
+                    <span id="detail-badge-text" class="text-orange-400 font-extrabold text-lg">MEDIUM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left Column -->
+        <div class="lg:col-span-2 flex flex-col gap-6">
+            
+            <!-- 2. Live Waiting Time & Progress -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center gap-6">
+                <div class="flex-grow w-full">
+                    <div class="flex justify-between items-end mb-3">
+                        <h3 class="font-bold text-slate-800 text-lg">Estimated Waiting Time</h3>
+                        <span id="detail-wait" class="text-2xl font-extrabold text-primary font-manrope">~ 45 mins</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+                        <div id="detail-wait-bar" class="bg-primary h-full w-[60%] rounded-full relative overflow-hidden">
+                            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-green-50 text-green-700 px-4 py-3 rounded-xl border border-green-200 shrink-0 flex items-start gap-3">
+                    <span class="material-symbols-outlined text-green-600 mt-0.5">verified_user</span>
+                    <div>
+                        <p class="text-[10px] font-bold uppercase tracking-wider opacity-70">Smart Suggestion</p>
+                        <p class="text-sm font-semibold">Best to visit after 2 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Crowd Trend Graph -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <h3 class="font-bold text-slate-800 text-lg mb-6 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">bar_chart</span> Daily Crowd Trend
+                </h3>
+                <div class="flex items-end justify-between h-40 pt-4 gap-4 px-4 border-b border-slate-200/60 pb-2">
+                    <!-- Morning -->
+                    <div class="flex flex-col items-center gap-2 w-full group">
+                        <div class="w-full max-w-[60px] bg-red-400 h-[90%] rounded-t-lg group-hover:bg-red-500 transition-colors relative">
+                            <div class="absolute -top-7 w-full text-center text-xs font-bold text-red-600">High</div>
+                        </div>
+                        <span class="text-xs font-semibold text-slate-500">Morning <br/>(6AM - 12PM)</span>
+                    </div>
+                    <!-- Afternoon -->
+                    <div class="flex flex-col items-center gap-2 w-full group">
+                        <div class="w-full max-w-[60px] bg-orange-400 h-[60%] rounded-t-lg group-hover:bg-orange-500 transition-colors relative">
+                            <div class="absolute -top-7 w-full text-center text-xs font-bold text-orange-600">Med</div>
+                        </div>
+                        <span class="text-xs font-semibold text-slate-500">Afternoon <br/>(12PM - 4PM)</span>
+                    </div>
+                    <!-- Evening -->
+                    <div class="flex flex-col items-center gap-2 w-full group">
+                        <div class="w-full max-w-[60px] bg-green-400 h-[30%] rounded-t-lg group-hover:bg-green-500 transition-colors relative">
+                            <div class="absolute -top-7 w-full text-center text-xs font-bold text-green-600">Low</div>
+                        </div>
+                        <span class="text-xs font-semibold text-slate-500">Evening <br/>(4PM - 9PM)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Smart Suggestions / 8. Alerts (Combined) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gradient-to-br from-indigo-50 to-blue-50 p-6 rounded-2xl border border-blue-100 flex flex-col gap-3">
+                    <span class="material-symbols-outlined text-blue-500 text-3xl mb-2">auto_awesome</span>
+                    <h4 class="font-bold text-slate-800">AI Intelligence</h4>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start gap-2"><span class="text-blue-500">→</span> Less crowded entry: Gate 2</li>
+                        <li class="flex items-start gap-2"><span class="text-blue-500">→</span> Avoid peak time: 9–11 AM</li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-amber-50 to-red-50 p-6 rounded-2xl border border-amber-100 flex flex-col gap-3">
+                    <span class="material-symbols-outlined text-amber-500 text-3xl mb-2">warning</span>
+                    <h4 class="font-bold text-slate-800">Live Alerts</h4>
+                    <ul class="text-sm text-slate-600 space-y-2">
+                        <li class="flex items-start gap-2 font-semibold"><span class="text-amber-500">⚠</span> Heavy rush expected today</li>
+                        <li class="flex items-start gap-2"><span class="text-amber-500">⚠</span> Route change at east gate</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="flex flex-col gap-6">
+            
+            <!-- 4. Quick Booking Section -->
+            <div class="bg-surface-container-lowest rounded-2xl p-6 shadow-lg shadow-primary/5 border-t-4 border-primary">
+                <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">confirmation_number</span> Fast Booking
+                </h3>
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between items-center p-3 rounded-lg border border-red-100 bg-red-50/50">
+                        <span class="font-semibold text-sm">10:00 AM</span>
+                        <span class="text-xs font-bold text-red-500 bg-red-100 px-2 py-1 rounded">FULL ❌</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 rounded-lg border border-green-200 bg-green-50 shadow-sm ring-1 ring-green-500/20">
+                        <span class="font-semibold text-sm">12:00 PM</span>
+                        <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded">AVAILABLE ✅</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 rounded-lg border border-slate-100 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <span class="font-semibold text-sm">02:00 PM</span>
+                        <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded">AVAILABLE ✅</span>
+                    </div>
+                </div>
+                <button class="w-full bg-primary text-white py-3.5 rounded-xl font-bold shadow-[0_8px_15px_-3px_rgba(230,81,0,0.4)] hover:-translate-y-0.5 active:translate-y-0 transition-all flex justify-center items-center gap-2">
+                    Book 12:00 PM Slot <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </button>
+            </div>
+
+            <!-- 10. QR / Ticket Section Mock -->
+            <div class="bg-surface-container-lowest rounded-2xl p-6 shadow-sm border border-slate-100 text-center relative overflow-hidden group">
+                <div class="absolute inset-0 bg-primary/95 flex flex-col items-center justify-center translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p class="text-white font-bold mb-2">Your Digital Pass</p>
+                    <div class="bg-white p-2 rounded relative">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=DivyaDarshanBooking123" alt="QR Code" class="w-24 h-24"/>
+                    </div>
+                    <p class="text-white text-xs mt-2 opacity-80">Scan at entrance</p>
+                </div>
+                <span class="material-symbols-outlined text-slate-300 text-5xl mb-2">qr_code_2</span>
+                <h4 class="font-bold text-slate-800">Already Booked?</h4>
+                <p class="text-xs text-slate-500 mb-4">Hover to view your digital QR pass for rapid entry.</p>
+            </div>
+
+            <!-- 6. Parking & 7. Navigation -->
+            <div class="bg-surface-container-lowest rounded-2xl p-0 shadow-sm border border-slate-100 overflow-hidden">
+                <div class="p-6 pb-4">
+                    <h3 class="font-bold text-slate-800 text-lg mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">local_parking</span> Parking Info
+                    </h3>
+                    <div class="flex justify-between items-center bg-slate-50 p-3 rounded-lg border border-slate-100 mb-2">
+                        <div>
+                            <p class="font-bold text-sm">South Gate Temp</p>
+                            <p class="text-[10px] text-slate-500">0.2 km away</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-black text-green-600">34</span>
+                            <p class="text-[9px] font-bold uppercase text-slate-400">Slots</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-100 h-24 relative overflow-hidden flex items-center justify-center">
+                    <div class="w-full h-full bg-cover bg-center opacity-40 filter grayscale" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBgxGpxM9K615C0W-r-0PqX998A-k-H7p-n-x-Z-v8k-V-z-H7p-n-x-Z-v8k-V-z8v-k-Z-v-H6v8z-n-V8k')"></div>
+                    <span class="material-symbols-outlined absolute text-primary text-3xl drop-shadow-md">pin_drop</span>
+                </div>
+                <button class="w-full bg-slate-50 text-slate-700 py-3 font-semibold hover:bg-slate-100 transition-colors flex justify-center items-center gap-2 border-t border-slate-200">
+                    <span class="material-symbols-outlined text-sm text-primary">directions</span> Get Directions
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

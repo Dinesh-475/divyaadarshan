@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Divya Darshan Admin Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#9e3f4e",
+                    "secondary-fixed-dim": "#d6d3d8",
+                    "outline-variant": "#acb3b8",
+                    "inverse-primary": "#929bfa",
+                    "on-secondary-container": "#525155",
+                    "surface-dim": "#d3dbe2",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-bright": "#f9f9fb",
+                    "on-secondary-fixed": "#3f3f43",
+                    "surface-container-high": "#e4e9ee",
+                    "secondary-fixed": "#e4e1e6",
+                    "on-tertiary-fixed": "#333d55",
+                    "primary": "#4c56af",
+                    "surface-variant": "#dde3e9",
+                    "on-primary-fixed": "#2c358e",
+                    "secondary-container": "#e4e1e6",
+                    "background": "#f9f9fb",
+                    "on-surface-variant": "#596065",
+                    "on-primary-fixed-variant": "#4953ac",
+                    "primary-container": "#e0e0ff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#fff7f7",
+                    "error-dim": "#4f0116",
+                    "tertiary": "#545f78",
+                    "secondary": "#605e62",
+                    "primary-dim": "#4049a2",
+                    "tertiary-dim": "#49536b",
+                    "on-secondary": "#fbf8fc",
+                    "surface": "#f9f9fb",
+                    "on-tertiary-fixed-variant": "#4f5a72",
+                    "error-container": "#ff8b9a",
+                    "surface-container-highest": "#dde3e9",
+                    "inverse-on-surface": "#9c9d9f",
+                    "primary-fixed": "#e0e0ff",
+                    "on-primary-container": "#3f48a1",
+                    "primary-fixed-dim": "#ced1ff",
+                    "on-tertiary": "#f9f8ff",
+                    "tertiary-container": "#d5dffd",
+                    "tertiary-fixed": "#d5dffd",
+                    "on-secondary-fixed-variant": "#5c5b5f",
+                    "on-error-container": "#782232",
+                    "outline": "#757c81",
+                    "on-background": "#2d3338",
+                    "surface-tint": "#4c56af",
+                    "on-tertiary-container": "#455068",
+                    "secondary-dim": "#535256",
+                    "on-surface": "#2d3338",
+                    "inverse-surface": "#0c0e10",
+                    "surface-container": "#ebeef2",
+                    "on-primary": "#f9f6ff",
+                    "tertiary-fixed-dim": "#c7d1ee"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.25rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9fb; color: #2d3338; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+        /* Sections hidden by default — JS controls visibility via showAdminSection() */
+        .admin-section { display: none; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col h-screen w-64 bg-slate-50 dark:bg-slate-950 sticky top-0 border-r-0 p-4 gap-2">
+<div class="flex items-center gap-3 px-4 py-6">
+<div class="flex items-center justify-center -ml-2">
+<img alt="Divya Darshan Logo" class="h-12 w-auto object-contain scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDa_JYABgaQ6W0Wnbi4Gcjo5COzOBYRT1rzoUO7XzhDcX6iiw4uDSFFViLt8nYALYkMuPKv0m9a9Jw3kf70RYE18L28scyCfouGpBl_tKs-H3D8dRDpHj1K5V6jV6j9Y9h9PJes0Xd4ayf3uk1254vuW6wGeROlJdfI109CtaYTAyafpbcMAdhIvQtJP4DyXqNpHRCWZfoHr4XSoW-7a4hMTg5Mge2-2nnKAmT1DFSPqb0GLletxtZp0OsNVFfEAlN7r66XEGS6rGY"/>
+</div>
+<div>
+<h2 class="text-lg font-bold text-indigo-900 dark:text-indigo-50 leading-tight">DD Admin</h2>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Sanctuary Management</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1 mt-4">
+<!-- Active State: Dashboard -->
+<a class="sidebar-link flex items-center gap-3 text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 rounded-lg px-4 py-3 font-semibold transition-all duration-300 ease-in-out cursor-pointer" onclick="showAdminSection('dashboard', this)">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all duration-300 ease-in-out cursor-pointer" onclick="showAdminSection('crowd-parking', this)">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="text-sm font-medium">Crowd & Parking</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all duration-300 ease-in-out cursor-pointer" onclick="showAdminSection('bookings', this)">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="text-sm font-medium">Bookings</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all duration-300 ease-in-out cursor-pointer" onclick="openEmergencyPanel()">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span class="text-sm font-medium">Emergency</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all duration-300 ease-in-out cursor-pointer" onclick="showAdminSection('feedback', this)">
+<span class="material-symbols-outlined" data-icon="rate_review">rate_review</span>
+<span class="text-sm font-medium">User Feedback</span>
+</a>
+<a class="sidebar-link flex items-center gap-3 text-slate-600 dark:text-slate-400 px-4 py-3 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all duration-300 ease-in-out cursor-pointer" onclick="openReportsPanel()">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="mt-auto p-4 bg-slate-100/50 dark:bg-slate-900/50 rounded-xl">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden">
+<img alt="Admin Profile Avatar" data-alt="close-up portrait of professional male administrator in modern office setting with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB9laeafWLCZcCEHUDZrdyohFZYNMa5-JDUIRNqGpFFyXsjDR0C1EC-KlofVz3LKwg_ybPFniLGMu_3hQDquR9vGYTxIriQzN9M9GMkkf4RRMLJWf73GOGGA2ZpXvse0mWubQGw3LT3RJJlV4Gzeu2qc1ik3SP_tiuchuiSHhqnTkc7gMJtkPHG5nuC8OpIagJkQ43D44bqQf8J2Sj2fLqYIA4VppjuPrfQ6lCDIb6Wg-xc9oIv8N9U6_UlII_1RX0cQBDpz0plQI"/>
+</div>
+<div class="flex-1 min-w-0">
+<p id="sidebar-admin-name" class="text-xs font-bold truncate">Rajesh Kumar</p>
+<p id="sidebar-admin-role" class="text-[10px] text-slate-500">Super Admin</p>
+</div>
+<div class="relative">
+    <button onclick="toggleAdminSettings()" class="material-symbols-outlined text-slate-400 text-sm hover:text-primary transition-colors cursor-pointer block">settings</button>
+    <div id="admin-settings-dropdown" class="hidden absolute bottom-full mb-2 right-0 w-40 bg-white border border-slate-100 shadow-[0_10px_40px_rgba(0,0,0,0.1)] rounded-xl overflow-hidden z-[60]">
+        <button onclick="openPersonalDetails()" class="w-full text-left px-4 py-3 text-xs font-bold text-slate-600 hover:bg-slate-50 border-b border-slate-100 flex items-center gap-2"><span class="material-symbols-outlined text-sm">person</span> Personal Details</button>
+        <button onclick="logoutAdmin()" class="w-full text-left px-4 py-3 text-xs font-bold text-red-600 hover:bg-red-50 flex items-center gap-2"><span class="material-symbols-outlined text-sm">logout</span> Logout</button>
+    </div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto">
+<!-- TopAppBar Component -->
+<header class="sticky top-0 z-40 bg-surface/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm shadow-indigo-900/5 flex justify-between items-center w-full px-8 py-4">
+<div class="flex items-center gap-4">
+<h1 id="admin-header-title" class="text-xl font-black tracking-tight text-indigo-900 dark:text-indigo-100">Divya Darshan</h1>
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-2 rounded-full gap-2">
+<span class="material-symbols-outlined text-slate-400 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 text-slate-600 w-64" placeholder="Search data, bookings..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-4 text-sm font-semibold text-slate-500 relative">
+    <div class="relative flex items-center">
+        <span class="material-symbols-outlined cursor-pointer hover:text-indigo-600 relative" onclick="toggleAdminNotifications()" data-icon="notifications">
+            notifications
+            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border border-white hidden" id="admin-notif-indicator"></span>
+        </span>
+        
+        <!-- Notifications Dropdown -->
+        <div id="admin-notifications-dropdown" class="hidden absolute top-8 right-0 w-80 bg-white border border-slate-100 shadow-[0_10px_40px_rgba(0,0,0,0.12)] rounded-xl overflow-hidden z-[70] flex flex-col cursor-default">
+            <div class="bg-surface-container-lowest border-b border-slate-100 px-4 py-3 flex justify-between items-center">
+                <h4 class="text-sm font-bold text-indigo-900">Activity Log</h4>
+                <button onclick="clearAdminNotifications()" class="text-[10px] uppercase font-bold tracking-wider text-slate-400 hover:text-red-500">Clear</button>
+            </div>
+            <div id="admin-notifications-list" class="max-h-72 overflow-y-auto flex flex-col bg-slate-50 relative">
+                <!-- Rendered internally -->
+                <div class="p-6 text-center text-slate-400 text-xs py-10 font-medium">No recent activity</div>
+            </div>
+        </div>
+    </div>
+    <span class="material-symbols-outlined cursor-pointer hover:text-red-500" onclick="logoutAdmin()" data-icon="logout">logout</span>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto w-full space-y-8">
+<!-- 1. Dashboard Overview -->
+<section id="admin-section-dashboard" class="admin-section grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm shadow-indigo-900/5 group hover:bg-primary-container transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-indigo-50 rounded-lg text-primary group-hover:bg-white/50">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+</div>
+<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">+12%</span>
+</div>
+<p class="text-sm font-medium text-slate-500 mb-1">Total Bookings</p>
+<h3 id="total-bookings-count" class="text-2xl font-black text-indigo-900">1,248</h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm shadow-indigo-900/5 group hover:bg-orange-50 transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-orange-50 rounded-lg text-orange-600 group-hover:bg-white/50">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</div>
+<span class="text-[10px] font-bold text-orange-600 bg-orange-100 px-2 py-1 rounded-full">Alert</span>
+</div>
+<p class="text-sm font-medium text-slate-500 mb-1">Current Crowd Level</p>
+<h3 class="text-2xl font-black text-orange-600 uppercase">Medium</h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm shadow-indigo-900/5 group hover:bg-slate-50 transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-slate-100 rounded-lg text-slate-600 group-hover:bg-white/50">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+</div>
+</div>
+<p class="text-sm font-medium text-slate-500 mb-1">Active Time Slots</p>
+<h3 class="text-2xl font-black text-indigo-900">8/12</h3>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm shadow-indigo-900/5 group hover:bg-emerald-50 transition-colors duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-emerald-50 rounded-lg text-emerald-600 group-hover:bg-white/50">
+<span class="material-symbols-outlined" data-icon="local_parking">local_parking</span>
+</div>
+</div>
+<p class="text-sm font-medium text-slate-500 mb-1">Parking Availability</p>
+<h3 id="parking-availability-kpi" class="text-2xl font-black text-indigo-900">45 Slots</h3>
+</div>
+</section>
+<!-- 2. Live Crowd Control & 4. Emergency/Parking (Integrated Layout) -->
+<div id="admin-section-crowd-parking" class="admin-section grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Update Status Card -->
+<section class="lg:col-span-1">
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm shadow-indigo-900/5 h-full">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-orange-600" data-icon="sensors">sensors</span>
+<h2 class="text-lg font-bold">Update Live Status</h2>
+</div>
+<div class="space-y-6">
+<div>
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Assigned Temple</label>
+<div class="relative">
+<select id="admin-admin-temple" class="w-full bg-slate-50 border-none rounded-lg px-4 py-3 text-sm font-bold text-indigo-900 appearance-none outline-none cursor-not-allowed pointer-events-none">
+<option value="tirupati">Tirupati Venkateswara Swamy</option>
+<option value="manjunatha">Dharmasthala Manjunatha</option>
+<option value="krishna">Udupi Krishna</option>
+<option value="kukke">Kukke Subramanya</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Crowd Intensity</label>
+<div class="grid grid-cols-3 gap-2 p-1 bg-surface-container-low rounded-xl" id="admin-intensity-group">
+<button type="button" onclick="setAdminIntensity('Low', this)" class="intensity-btn py-2 text-xs font-bold rounded-lg text-slate-500 hover:bg-white transition-all">Low</button>
+<button type="button" onclick="setAdminIntensity('Medium', this)" class="intensity-btn py-2 text-xs font-bold rounded-lg bg-white text-orange-600 shadow-sm active-intensity">Medium</button>
+<button type="button" onclick="setAdminIntensity('High', this)" class="intensity-btn py-2 text-xs font-bold rounded-lg text-slate-500 hover:bg-white transition-all">High</button>
+</div>
+</div>
+<button onclick="submitAdminLiveStatus()" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-lg transition-all scale-active-98 shadow-lg shadow-orange-600/20">
+                                Update Status
+                            </button>
+<p id="admin-last-updated" class="text-center text-[10px] font-medium text-slate-400 italic">Last updated: Just now</p>
+</div>
+</div>
+</section>
+<!-- 4. Parking & Emergency -->
+<div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Parking Management -->
+<div class="bg-surface-container-lowest p-6 rounded-lg shadow-sm shadow-indigo-900/5 flex flex-col">
+<div class="flex items-center justify-between mb-1">
+<h2 class="text-lg font-bold">Parking Management</h2>
+<span class="material-symbols-outlined text-slate-400">local_parking</span>
+</div>
+<p class="text-[11px] text-slate-400 mb-4">Set live slot counts per zone — changes publish instantly to the pilgrim dashboard.</p>
+<div class="mb-4 pb-4 border-b border-slate-100">
+    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Assigned Venue</label>
+    <select id="admin-parking-temple" onchange="updateAdminParking()" class="w-full bg-slate-50 border-none rounded-lg px-4 py-3 text-sm font-bold text-indigo-900 appearance-none outline-none cursor-not-allowed pointer-events-none">
+        <option value="tirupati">Tirupati Balaji</option>
+        <option value="manjunatha">Dharmasthala Manjunatha</option>
+        <option value="krishna">Udupi Krishna</option>
+        <option value="kukke">Kukke Subramanya</option>
+    </select>
+</div>
+<div id="admin-parking-list" class="space-y-4 flex-1 overflow-y-auto pr-1 max-h-72">
+    <!-- injected dynamically -->
+</div>
+<button onclick="saveAdminParkingSlots()" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2">
+    <span class="material-symbols-outlined text-[18px]">publish</span>
+    Save &amp; Publish to Users
+</button>
+<p id="parking-save-status" class="text-center text-[11px] font-medium text-emerald-600 mt-2 hidden">✅ Published! User dashboard will update in a few seconds.</p>
+</div>
+
+</div>
+</div>
+
+<!-- Recent Bookings Summary on Dashboard -->
+<div class="lg:col-span-3 bg-surface-container-lowest p-6 rounded-lg shadow-sm shadow-indigo-900/5 mt-8">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-lg font-bold">Latest Bookings Summary</h2>
+        <button onclick="showAdminSection('bookings', document.querySelector('[onclick*=\"bookings\"]'))" class="text-xs font-bold text-primary hover:underline">View All Records</button>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead class="bg-surface-container-low text-[10px] uppercase tracking-wider text-slate-500 font-black">
+                <tr>
+                    <th class="px-6 py-3">ID</th>
+                    <th class="px-6 py-3">Time Slot</th>
+                    <th class="px-6 py-3 text-center">People</th>
+                    <th class="px-6 py-3 text-right">Status</th>
+                </tr>
+            </thead>
+            <tbody id="dashboard-bookings-summary" class="divide-y divide-surface-container-low">
+                <!-- Injected via syncAdminKPIs -->
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- 3. Manage Bookings (Table Section) -->
+<section id="admin-section-bookings" class="admin-section bg-surface-container-lowest rounded-lg shadow-sm shadow-indigo-900/5 overflow-hidden">
+<div class="px-8 py-6 flex flex-wrap gap-4 items-center justify-between border-b border-surface-container-low">
+<h2 class="text-lg font-bold">Recent Bookings</h2>
+<div class="flex items-center gap-3">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-lg gap-2">
+<span class="material-symbols-outlined text-slate-400 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none text-xs focus:ring-0" placeholder="Search ID..." type="text" onkeydown="if(event.key==='Enter') alert('Search results cleared for: ' + this.value)" />
+</div>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-lg" onclick="alert('Filtering booked records...')">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="border-2 border-indigo-100 text-indigo-900 px-4 py-2 rounded-lg text-xs font-bold hover:bg-indigo-50 transition-colors" onclick="alert('Add Offline Booking modal triggered')">
+                            Add Offline Booking
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-[10px] uppercase tracking-wider text-slate-500 font-black">
+<tr>
+<th class="px-8 py-4">Booking ID</th>
+<th class="px-8 py-4">Temple Name</th>
+<th class="px-8 py-4">Time Slot</th>
+<th class="px-8 py-4 text-center">People</th>
+<th class="px-8 py-4">Source</th>
+<th class="px-8 py-4 text-right">Status & Actions</th>
+</tr>
+</thead>
+<tbody id="admin-bookings-list" class="divide-y divide-surface-container-low">
+    <!-- Rendered via JS -->
+</tbody>
+</table>
+</div>
+</section>
+<!-- 5. Temple Location Map (context-aware) -->
+<section class="pb-12">
+<div class="bg-surface-container-lowest rounded-lg shadow-sm shadow-indigo-900/5 overflow-hidden">
+    <div class="px-6 py-5 flex items-center justify-between border-b border-surface-container-low">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">location_on</span>
+            <div>
+                <h2 class="text-lg font-bold" id="map-section-title">Temple Location</h2>
+                <p class="text-xs text-slate-500" id="map-section-subtitle">Live map view of your assigned temple</p>
+            </div>
+        </div>
+        <a id="map-open-link" href="#" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary font-bold text-xs rounded-lg transition-colors">
+            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+            Open in Google Maps
+        </a>
+    </div>
+    <div class="relative w-full" style="height: 460px;">
+        <iframe id="admin-temple-map" src="" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="w-full h-full block"></iframe>
+        <div class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm shadow-lg rounded-xl px-4 py-2 flex items-center gap-2 pointer-events-none">
+            <span class="w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></span>
+            <span class="text-xs font-bold text-indigo-900" id="map-badge-text">Loading map...</span>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- 6. User Feedback Section -->
+<section id="admin-section-feedback" class="admin-section bg-surface-container-lowest rounded-lg shadow-sm shadow-indigo-900/5 overflow-hidden">
+<div class="px-8 py-6 flex flex-wrap gap-4 items-center justify-between border-b border-surface-container-low">
+<h2 class="text-lg font-bold">Pilgrim Feedback</h2>
+<div class="flex items-center gap-2">
+    <span id="feedback-avg-star" class="text-xl font-bold text-yellow-500">4.8</span>
+    <span class="text-xs text-slate-400">Average Rating</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-[10px] uppercase tracking-wider text-slate-500 font-black">
+<tr>
+<th class="px-8 py-4">User</th>
+<th class="px-8 py-4">Rating</th>
+<th class="px-8 py-4">Comment</th>
+<th class="px-8 py-4">Time</th>
+</tr>
+</thead>
+<tbody id="admin-feedback-list" class="divide-y divide-surface-container-low">
+    <!-- Rendered via JS -->
+</tbody>
+</table>
+</div>
+</section>
+
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface/90 backdrop-blur-lg flex justify-around py-3 px-6 z-50 shadow-2xl">
+<button class="text-orange-600 flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+</button>
+<button class="text-slate-400 flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+</button>
+<button class="text-slate-400 flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="local_parking">local_parking</span>
+</button>
+<button class="text-slate-400 flex flex-col items-center">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</button>
+</nav>
+<!-- EMERGENCY PANEL -->
+<div id="emergency-panel" class="fixed inset-0 z-[150] bg-slate-900/60 backdrop-blur-sm hidden items-start justify-end" onclick="closePanelIfBg(event, 'emergency-panel')">
+  <div class="h-full w-full max-w-xl bg-white shadow-[0_0_60px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-red-700 to-red-500 p-6 text-white flex-shrink-0">
+      <div class="flex justify-between items-center">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="material-symbols-outlined text-[20px] opacity-80">warning</span>
+            <span class="text-xs font-bold uppercase tracking-widest opacity-80">Admin Emergency</span>
+          </div>
+          <h2 class="text-2xl font-extrabold">Live Incident Console</h2>
+          <p class="text-white/60 text-sm mt-1" id="ep-zone-label">Monitoring zone</p>
+        </div>
+        <button onclick="closeEmergencyPanel()" class="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+      <!-- Dot indicator -->
+      <div class="flex items-center gap-2 mt-4">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping bg-white absolute inline-flex h-full w-full rounded-full opacity-75" id="ep-ping"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+        </span>
+        <span class="text-xs font-bold opacity-80" id="ep-status-label">Scanning for active alerts...</span>
+      </div>
+    </div>
+    <!-- Scrollable body -->
+    <div class="flex-1 overflow-y-auto bg-slate-50 p-6">
+      <div id="ep-emergency-list" class="space-y-3">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="flex-shrink-0 bg-white border-t border-slate-100 px-6 py-4 flex gap-3">
+      <button onclick="closeEmergencyPanel()" class="flex-1 py-3 border-2 border-slate-200 rounded-xl text-slate-700 font-bold hover:bg-slate-50 transition-colors">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- REPORTS PANEL MODAL -->
+<div id="reports-panel" class="fixed inset-0 z-[150] bg-slate-900/60 backdrop-blur-sm hidden items-start justify-end" onclick="closePanelIfBg(event, 'reports-panel')">
+  <div class="h-full w-full max-w-2xl bg-white shadow-[0_0_60px_rgba(0,0,0,0.15)] flex flex-col overflow-hidden" id="reports-panel-inner">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-indigo-900 to-indigo-700 p-6 text-white flex-shrink-0">
+      <div class="flex justify-between items-start">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="material-symbols-outlined text-[20px] opacity-70">analytics</span>
+            <span class="text-xs font-bold uppercase tracking-widest opacity-70">Admin Reports</span>
+          </div>
+          <h2 class="text-2xl font-extrabold" id="reports-temple-title">Temple Analytics Report</h2>
+          <p class="text-white/60 text-sm mt-1" id="reports-timestamp">Generated now</p>
+        </div>
+        <button onclick="closeReportsPanel()" class="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+      <!-- Quick KPI strip -->
+      <div class="grid grid-cols-3 gap-3 mt-5">
+        <div class="bg-white/10 rounded-xl p-3 text-center">
+          <p class="text-2xl font-black" id="rpt-total-bookings">–</p>
+          <p class="text-[10px] uppercase tracking-wider opacity-70 mt-1">Total Bookings</p>
+        </div>
+        <div class="bg-white/10 rounded-xl p-3 text-center">
+          <p class="text-2xl font-black" id="rpt-sos-count">–</p>
+          <p class="text-[10px] uppercase tracking-wider opacity-70 mt-1">SOS Incidents</p>
+        </div>
+        <div class="bg-white/10 rounded-xl p-3 text-center">
+          <p class="text-2xl font-black" id="rpt-logins">–</p>
+          <p class="text-[10px] uppercase tracking-wider opacity-70 mt-1">User Logins</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="flex-1 overflow-y-auto bg-slate-50 p-6 space-y-6">
+
+      <!-- Booking breakdown -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-100 flex items-center gap-2">
+          <span class="material-symbols-outlined text-indigo-600 text-[18px]">confirmation_number</span>
+          <h3 class="font-bold text-slate-800">Booking Activity</h3>
+        </div>
+        <div class="p-5">
+          <div class="grid grid-cols-2 gap-3 mb-4" id="rpt-booking-cards">
+            <!-- injected -->
+          </div>
+          <!-- Mini timeline -->
+          <div id="rpt-booking-timeline" class="space-y-2 max-h-56 overflow-y-auto">
+            <!-- injected -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Crowd Tempo -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-100 flex items-center gap-2">
+          <span class="material-symbols-outlined text-orange-500 text-[18px]">sensors</span>
+          <h3 class="font-bold text-slate-800">Crowd Intensity Snapshot</h3>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-black shadow-inner" id="rpt-crowd-circle">–</div>
+            <div>
+              <p class="text-xs text-slate-500 uppercase tracking-wider font-bold">Current Level</p>
+              <p class="text-lg font-black" id="rpt-crowd-label">–</p>
+              <p class="text-xs text-slate-400 mt-1">Updated by admin via Live Status panel</p>
+            </div>
+          </div>
+          <!-- Intensity bar -->
+          <div class="flex gap-2 mt-2">
+            <div class="flex-1 text-center">
+              <div class="h-2 rounded-full bg-green-200 mb-1 overflow-hidden"><div class="h-full bg-green-500 rounded-full" id="rpt-bar-low" style="width:0%"></div></div>
+              <p class="text-[10px] font-bold text-green-700">LOW</p>
+            </div>
+            <div class="flex-1 text-center">
+              <div class="h-2 rounded-full bg-orange-200 mb-1 overflow-hidden"><div class="h-full bg-orange-500 rounded-full" id="rpt-bar-med" style="width:0%"></div></div>
+              <p class="text-[10px] font-bold text-orange-700">MEDIUM</p>
+            </div>
+            <div class="flex-1 text-center">
+              <div class="h-2 rounded-full bg-red-200 mb-1 overflow-hidden"><div class="h-full bg-red-500 rounded-full" id="rpt-bar-high" style="width:0%"></div></div>
+              <p class="text-[10px] font-bold text-red-700">HIGH</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOS Incidents -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-100 flex items-center gap-2">
+          <span class="material-symbols-outlined text-red-500 text-[18px]">warning</span>
+          <h3 class="font-bold text-slate-800">Emergency SOS Log</h3>
+        </div>
+        <div id="rpt-sos-list" class="divide-y divide-slate-50 max-h-52 overflow-y-auto">
+          <!-- injected -->
+        </div>
+      </div>
+
+      <!-- Parking status -->
+      <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-100 flex items-center gap-2">
+          <span class="material-symbols-outlined text-emerald-600 text-[18px]">local_parking</span>
+          <h3 class="font-bold text-slate-800">Current Parking Status</h3>
+        </div>
+        <div id="rpt-parking-status" class="p-5 space-y-3">
+          <!-- injected -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer actions -->
+    <div class="flex-shrink-0 bg-white border-t border-slate-100 px-6 py-4 flex gap-3">
+      <button onclick="exportReport()" class="flex-1 bg-indigo-900 hover:bg-indigo-800 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-lg shadow-indigo-900/20">
+        <span class="material-symbols-outlined text-[18px]">download</span> Export Report
+      </button>
+      <button onclick="closeReportsPanel()" class="px-6 py-3 border-2 border-slate-200 rounded-xl text-slate-700 font-bold hover:bg-slate-50 transition-colors">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Global Tooltip -->
+<div id="global-tooltip" class="fixed pointer-events-none opacity-0 z-50 bg-indigo-900 text-white text-[10px] font-bold px-3 py-2 rounded-lg shadow-xl shadow-indigo-900/20 transition-opacity duration-200" style="left: 0; top: 0; transform: translate(-50%, -120%);"></div>
+
+<!-- Admin Profile Modal -->
+<div id="admin-profile-modal" class="fixed inset-0 z-[100] bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 border border-slate-100">
+        <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-surface-container-lowest">
+            <h3 class="font-bold text-indigo-900 text-lg">Personal Details</h3>
+            <button onclick="closePersonalDetails()" class="text-slate-400 hover:text-red-500 rounded-full p-1"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div class="p-6 space-y-4">
+            <div>
+                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Full Name</label>
+                <input type="text" id="edit-admin-name" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-2 text-sm font-medium focus:ring-2 focus:ring-primary/20 outline-none" />
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Age</label>
+                <input type="number" id="edit-admin-age" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-2 text-sm font-medium focus:ring-2 focus:ring-primary/20 outline-none" />
+            </div>
+            <div>
+                <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Role</label>
+                <input type="text" id="edit-admin-role" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-2 text-sm font-medium focus:ring-2 focus:ring-primary/20 outline-none" />
+            </div>
+        </div>
+        <div class="px-6 py-4 border-t border-slate-100 bg-surface-container-low flex justify-end gap-3">
+            <button onclick="closePersonalDetails()" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-slate-700">Cancel</button>
+            <button onclick="savePersonalDetails()" class="px-6 py-2 bg-primary hover:bg-primary-dim text-white text-xs font-bold rounded-lg shadow-md transition-colors">Save Details</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Default parking baseline — written to localStorage once if not present
+const defaultParkingData = {
+    tirupati: { 
+        name: "Tirupati Balaji", 
+        zones: [
+            { name: "Main Gate East", capacity: 100, filled: 32, distance: "0.5km" },
+            { name: "Hilltop North", capacity: 50, filled: 12, distance: "0.3km" },
+            { name: "Basement P2", capacity: 200, filled: 198, distance: "0.8km" },
+            { name: "VIP Annex", capacity: 30, filled: 25, distance: "0.1km" }
+        ] 
+    },
+    manjunatha: { 
+        name: "Dharmasthala Manjunatha", 
+        zones: [
+            { name: "Netravathi River Bank", capacity: 150, filled: 90, distance: "1.2km" },
+            { name: "Annapoorna Block", capacity: 80, filled: 75, distance: "0.2km" },
+            { name: "South Gate Temp", capacity: 60, filled: 34, distance: "0.4km" }
+        ] 
+    },
+    krishna: { 
+        name: "Udupi Krishna", 
+        zones: [
+            { name: "Car Street Left", capacity: 40, filled: 40, distance: "0.1km" },
+            { name: "Rajangana Parking", capacity: 120, filled: 40, distance: "0.4km" }
+        ] 
+    },
+    kukke: { 
+        name: "Kukke Subramanya", 
+        zones: [
+            { name: "Kumaradhara Snana Ghat", capacity: 200, filled: 50, distance: "1.5km" },
+            { name: "Temple Front Avenue", capacity: 60, filled: 58, distance: "0.2km" }
+        ] 
+    }
+};
+
+// Initialise localStorage with defaults the very first time
+if (!localStorage.getItem('dd_parkingData')) {
+    localStorage.setItem('dd_parkingData', JSON.stringify(defaultParkingData));
+}
+const existingBookings = localStorage.getItem('dd_bookings');
+if (!existingBookings || existingBookings === '[]' || existingBookings === 'null') {
+    const initialBookings = [
+        { id: 'DD-1001', ticketId: 'DD-1001', templeKey: 'tirupati', templeName: 'Tirupati Balaji', date: '05 May 2024', time: 'Morning', pilgrims: 4, phone: '+91 9886012345', status: 'Confirmed', source: 'Online' },
+        { id: 'DD-1002', ticketId: 'DD-1002', templeKey: 'manjunatha', templeName: 'Dharmasthala Manjunatha', date: '06 May 2024', time: 'Afternoon', pilgrims: 2, phone: '+91 9900154321', status: 'Confirmed', source: 'Online' }
+    ];
+    localStorage.setItem('dd_bookings', JSON.stringify(initialBookings));
+}
+
+function getLiveParkingData() {
+    try { return JSON.parse(localStorage.getItem('dd_parkingData')) || defaultParkingData; }
+    catch(e) { return defaultParkingData; }
+}
+
+let currentIntensity = 'Medium';
+
+function showAdminSection(id, link) {
+    // Hide all sections
+    document.querySelectorAll('.admin-section').forEach(s => {
+        s.classList.add('hidden');
+        s.style.display = 'none';
+    });
+    
+    // Show selected section
+    const target = document.getElementById('admin-section-' + id);
+    if (target) {
+        target.classList.remove('hidden');
+        // Restore correct display type
+        target.style.display = id === 'dashboard' ? 'grid' : (id === 'bookings' ? 'block' : 'grid');
+    }
+
+    // Update sidebar active state
+    document.querySelectorAll('.sidebar-link').forEach(l => {
+        l.classList.remove('text-orange-600', 'bg-orange-50', 'font-semibold');
+        l.classList.add('text-slate-600');
+    });
+    link.classList.add('text-orange-600', 'bg-orange-50', 'font-semibold');
+    link.classList.remove('text-slate-600');
+    
+    // Load data when relevant section opens
+    if (id === 'bookings') renderAdminBookings();
+    if (id === 'crowd-parking') updateAdminParking();
+}
+
+function setAdminIntensity(level, btn) {
+    currentIntensity = level;
+    document.querySelectorAll('.intensity-btn').forEach(b => {
+        b.classList.remove('bg-white', 'text-orange-600', 'shadow-sm', 'active-intensity');
+        b.classList.add('text-slate-500');
+    });
+    btn.classList.add('bg-white', 'text-orange-600', 'shadow-sm', 'active-intensity');
+    btn.classList.remove('text-slate-500');
+}
+
+function submitAdminLiveStatus() {
+    const templeKey = document.getElementById('admin-admin-temple').value;
+    const status = {
+        templeKey: templeKey,
+        intensity: currentIntensity,
+        timestamp: new Date().toISOString()
+    };
+    localStorage.setItem('dd_crowdStatus_' + templeKey, JSON.stringify(status));
+    
+    // Update global activity log
+    const notes = JSON.parse(localStorage.getItem('globalNotifications') || '[]');
+    notes.unshift({
+        type: 'alert',
+        msg: `Crowd level for ${templeKey} updated to ${currentIntensity}`,
+        time: new Date().toLocaleTimeString(),
+        targetContext: templeKey
+    });
+    localStorage.setItem('globalNotifications', JSON.stringify(notes.slice(0, 30)));
+    renderAdminNotifications();
+    
+    document.getElementById('admin-last-updated').innerText = 'Last updated: ' + new Date().toLocaleTimeString();
+    alert(`Status updated: ${templeKey} is now ${currentIntensity}`);
+}
+
+function renderAdminBookings() {
+    const listEl = document.getElementById('admin-bookings-list');
+    if (!listEl) return;
+    
+    const adminContext = localStorage.getItem('adminContext') || 'tirupati';
+    // User page saves to 'dd_bookings'
+    const allBookings = JSON.parse(localStorage.getItem('dd_bookings') || '[]');
+    
+    const myBookings = allBookings.filter(b => {
+        if (!b.templeKey) return false;
+        return b.templeKey === adminContext;
+    });
+
+    if (myBookings.length === 0) {
+        listEl.innerHTML = '<tr><td colspan="6" class="px-8 py-10 text-center text-slate-400 font-medium">No active bookings found for this temple.</td></tr>';
+        return;
+    }
+
+    listEl.innerHTML = myBookings.map(b => `
+        <tr class="hover:bg-slate-50 transition-colors">
+            <td class="px-8 py-4 font-bold text-indigo-900">#${b.ticketId || b.id || 'N/A'}</td>
+            <td class="px-8 py-4 text-slate-600 font-medium">${b.templeName}</td>
+            <td class="px-8 py-4 text-slate-600">${b.date} · ${b.time}</td>
+            <td class="px-8 py-4 text-center text-slate-600 font-bold">${b.pilgrims || 1}</td>
+            <td class="px-8 py-4">
+                <span class="text-[10px] font-black px-2 py-1 bg-indigo-50 text-indigo-600 rounded uppercase tracking-widest">Online</span>
+            </td>
+            <td class="px-8 py-4 text-right">
+                <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">Confirmed</span>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function renderAdminFeedback() {
+    const listEl = document.getElementById('admin-feedback-list');
+    if (!listEl) return;
+    
+    const adminContext = localStorage.getItem('adminContext') || 'tirupati';
+    const allFeed = JSON.parse(localStorage.getItem('dd_feedback') || '[]');
+    const myFeed = allFeed.filter(f => f.templeKey === adminContext);
+    
+    if (myFeed.length === 0) {
+        listEl.innerHTML = '<tr><td colspan="4" class="px-8 py-10 text-center text-slate-400 text-sm">No feedback received yet.</td></tr>';
+        return;
+    }
+
+    listEl.innerHTML = myFeed.map(f => {
+        const stars = '★'.repeat(f.rating) + '☆'.repeat(5 - f.rating);
+        return `
+            <tr class="hover:bg-slate-50 transition-colors">
+                <td class="px-8 py-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-500">${f.name[0]}</div>
+                        <span class="text-sm font-bold text-indigo-900">${f.name}</span>
+                    </div>
+                </td>
+                <td class="px-8 py-4">
+                    <span class="text-yellow-500 font-bold">${stars}</span>
+                </td>
+                <td class="px-8 py-4 text-xs text-slate-600 max-w-md italic">"${f.thoughts || 'No comment provided'}"</td>
+                <td class="px-8 py-4 text-[10px] text-slate-400 font-bold uppercase">${new Date(f.time).toLocaleTimeString()}</td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function updateAdminParking() {
+    const templeKey = document.getElementById('admin-parking-temple').value;
+    const liveParkingData = getLiveParkingData();
+    const zones = liveParkingData[templeKey]?.zones || [];
+    const listEl = document.getElementById('admin-parking-list');
+    listEl.innerHTML = '';
+    
+    zones.forEach((zone, idx) => {
+        const available = zone.capacity - zone.filled;
+        const percentage = Math.round((zone.filled / zone.capacity) * 100);
+        let barColor = 'bg-emerald-500';
+        if (percentage >= 90) barColor = 'bg-red-500';
+        else if (percentage >= 70) barColor = 'bg-orange-500';
+        
+        listEl.innerHTML += `
+            <div class="p-4 bg-surface-container-low rounded-xl border border-slate-100">
+                <div class="flex justify-between items-center mb-2">
+                    <p class="text-sm font-bold text-slate-800">${zone.name}</p>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                        available === 0 ? 'text-red-600 bg-red-50' : 
+                        available < 10  ? 'text-orange-600 bg-orange-50' : 
+                                          'text-emerald-600 bg-emerald-50'
+                    }">${available === 0 ? 'FULL' : available + ' free'}</span>
+                </div>
+
+                <!-- Editable Inputs -->
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1 block">Total Slots</label>
+                        <input type="number" min="1" max="9999"
+                            id="parking-capacity-${templeKey}-${idx}"
+                            value="${zone.capacity}"
+                            class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        />
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1 block">Filled Slots</label>
+                        <input type="number" min="0" max="9999"
+                            id="parking-filled-${templeKey}-${idx}"
+                            value="${zone.filled}"
+                            class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                        />
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                    <div id="parking-bar-${templeKey}-${idx}" class="${barColor} h-full transition-all" style="width: ${percentage}%"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-1">${zone.distance} away</p>
+            </div>
+        `;
+    });
+    
+    // Also update creative map
+    renderCreativeParkingMap(templeKey, zones);
+}
+
+function saveAdminParkingSlots() {
+    const templeKey = document.getElementById('admin-parking-temple').value;
+    let data = getLiveParkingData();
+    const zones = data[templeKey]?.zones || [];
+    
+    let valid = true;
+    zones.forEach((zone, idx) => {
+        const capacityEl = document.getElementById(`parking-capacity-${templeKey}-${idx}`);
+        const filledEl   = document.getElementById(`parking-filled-${templeKey}-${idx}`);
+        if (!capacityEl || !filledEl) return;
+        
+        const capacity = parseInt(capacityEl.value);
+        const filled   = parseInt(filledEl.value);
+        
+        if (isNaN(capacity) || capacity < 1) { alert(`Zone "${zone.name}": Total Slots must be at least 1.`); valid = false; return; }
+        if (isNaN(filled)   || filled < 0)   { alert(`Zone "${zone.name}": Filled Slots cannot be negative.`); valid = false; return; }
+        if (filled > capacity)               { alert(`Zone "${zone.name}": Filled (${filled}) cannot exceed Total (${capacity}).`); valid = false; return; }
+        
+        data[templeKey].zones[idx].capacity = capacity;
+        data[templeKey].zones[idx].filled   = filled;
+    });
+    
+    if (!valid) return;
+    
+    // Persist to localStorage — user page reads this every 4s
+    localStorage.setItem('dd_parkingData', JSON.stringify(data));
+    
+    // Re-render admin view
+    updateAdminParking();
+    updateAdminParkingKPI();
+    
+    // Show success toast
+    const statusEl = document.getElementById('parking-save-status');
+    if (statusEl) {
+        statusEl.classList.remove('hidden');
+        setTimeout(() => statusEl.classList.add('hidden'), 4000);
+    }
+    
+    // Log to notifications
+    const notes = JSON.parse(localStorage.getItem('globalNotifications') || '[]');
+    notes.unshift({
+        type: 'info',
+        msg: `Parking updated for ${templeKey}: ${zones.map(z => z.name + ' (' + (z.capacity - z.filled) + ' free)').join(', ')}`,
+        time: new Date().toLocaleTimeString(),
+        targetContext: templeKey
+    });
+    localStorage.setItem('globalNotifications', JSON.stringify(notes.slice(0, 30)));
+    renderAdminNotifications();
+}
+
+function adminFreeSlot(templeKey, zoneIdx) {
+    let data = getLiveParkingData();
+    if (data[templeKey]?.zones[zoneIdx] && data[templeKey].zones[zoneIdx].filled > 0) {
+        data[templeKey].zones[zoneIdx].filled--;
+        localStorage.setItem('dd_parkingData', JSON.stringify(data));
+        updateAdminParking();
+        updateAdminParkingKPI();
+    }
+}
+
+// Creative Map Logic
+function renderCreativeParkingMap(templeKey, zones) {
+    const mapEl = document.getElementById('admin-creative-parking');
+    if (!mapEl) return;
+    
+    // Clear and build grid
+    mapEl.innerHTML = '<div class="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>';
+    
+    const colors = { car: 'bg-emerald-400', bike: 'bg-orange-400', bus: 'bg-indigo-400' };
+    
+    zones.forEach((zone, zi) => {
+        const capacity = zone.capacity;
+        const filled = zone.filled;
+        const slotsToDraw = Math.min(40, capacity); // scale visually
+        const ratio = filled / capacity;
+        const drawnFilled = Math.floor(slotsToDraw * ratio);
+        
+        // Make a box for the zone
+        const zoneBox = document.createElement('div');
+        zoneBox.className = 'absolute border border-slate-700 bg-slate-800/50 rounded-lg p-2 transition-all';
+        
+        // Random placements for zone boxes
+        if (zi === 0) { zoneBox.style.top='5%'; zoneBox.style.left='5%'; zoneBox.style.width='40%'; zoneBox.style.height='40%'; }
+        else if (zi === 1) { zoneBox.style.top='5%'; zoneBox.style.right='5%'; zoneBox.style.width='45%'; zoneBox.style.height='50%'; }
+        else if (zi === 2) { zoneBox.style.bottom='5%'; zoneBox.style.left='5%'; zoneBox.style.width='50%'; zoneBox.style.height='45%'; }
+        else { zoneBox.style.bottom='5%'; zoneBox.style.right='5%'; zoneBox.style.width='35%'; zoneBox.style.height='35%'; }
+        
+        zoneBox.innerHTML = `<div class="text-[8px] font-black uppercase text-slate-400 tracking-widest absolute -top-2 left-2 bg-slate-900 px-1 border border-slate-700 rounded">${zone.name}</div><div class="w-full h-full flex flex-wrap gap-1 content-start mt-2"></div>`;
+        
+        const innerGrid = zoneBox.querySelector('.flex-wrap');
+        
+        for(let i=0; i<slotsToDraw; i++) {
+            const isFilled = i < drawnFilled;
+            let dot = document.createElement('div');
+            if (isFilled) {
+                // random type
+                const r = Math.random();
+                let type = r > 0.8 ? 'directions_bus' : (r > 0.5 ? 'two_wheeler' : 'directions_car');
+                let colorClass = type === 'directions_bus' ? 'text-indigo-400' : (type === 'two_wheeler' ? 'text-orange-400' : 'text-emerald-400');
+                dot.className = `flex justify-center items-center scale-90 md:scale-100 animate-[pulse_3s_ease-in-out_infinite]`;
+                dot.innerHTML = `<span class="material-symbols-outlined ${colorClass} text-[16px] drop-shadow-[0_0_8px_currentColor]">${type}</span>`;
+            } else {
+                dot.className = 'w-4 h-4 rounded border border-slate-700/50';
+            }
+            innerGrid.appendChild(dot);
+        }
+        
+        mapEl.appendChild(zoneBox);
+    });
+}
+
+
+function updateAdminParkingKPI() {
+    const kpiEl = document.getElementById('parking-availability-kpi');
+    if (!kpiEl) return;
+    const adminContext = localStorage.getItem('adminContext') || 'tirupati';
+    const liveParkingData = getLiveParkingData();
+    const zones = liveParkingData[adminContext]?.zones || [];
+    const totalFree = zones.reduce((sum, z) => sum + Math.max(0, z.capacity - z.filled), 0);
+    kpiEl.textContent = totalFree + ' Slots';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialise section visibility — show dashboard, hide the rest
+    document.querySelectorAll('.admin-section').forEach(s => {
+        s.classList.add('hidden');
+        s.style.display = 'none';
+    });
+    const dashEl = document.getElementById('admin-section-dashboard');
+    if (dashEl) {
+        dashEl.classList.remove('hidden');
+        dashEl.style.display = 'grid';
+    }
+
+    // 1. Context parsing logic
+    const adminContext = localStorage.getItem('adminContext');
+    
+    // Auto-bootstrap profile
+    const defaultAdminProfiles = {
+        'tirupati': { name: 'Tirupati Executive', age: 45, role: 'Super Admin' },
+        'manjunatha': { name: 'Dharmasthala Executive', age: 52, role: 'Chief Admin' }
+    };
+    const profileKey = 'adminProfile_' + adminContext;
+    let savedProfile = JSON.parse(localStorage.getItem(profileKey));
+    if (!savedProfile && adminContext && defaultAdminProfiles[adminContext]) savedProfile = defaultAdminProfiles[adminContext];
+    if (!savedProfile) savedProfile = { name: 'Guest Admin', age: 30, role: 'Viewer' };
+    
+    document.getElementById('sidebar-admin-name').innerText = savedProfile.name;
+    document.getElementById('sidebar-admin-role').innerText = savedProfile.role;
+
+    if (adminContext === 'manjunatha') {
+        const titleEl = document.getElementById('admin-header-title');
+        if (titleEl) titleEl.innerText = "Sri Dharmasthala Admin";
+        
+        const statSelect = document.getElementById('admin-admin-temple');
+        if (statSelect) { statSelect.value = 'manjunatha'; statSelect.disabled = true; }
+        
+        const parkSelect = document.getElementById('admin-parking-temple');
+        if (parkSelect) { parkSelect.value = 'manjunatha'; parkSelect.disabled = true; }
+    } else if (adminContext === 'tirupati') {
+        const titleEl = document.getElementById('admin-header-title');
+        if (titleEl) titleEl.innerText = "Tirupati Admin";
+        
+        const statSelect = document.getElementById('admin-admin-temple');
+        if (statSelect) { statSelect.value = 'tirupati'; statSelect.disabled = true; }
+        
+        const parkSelect = document.getElementById('admin-parking-temple');
+        if (parkSelect) { parkSelect.value = 'tirupati'; parkSelect.disabled = true; }
+    }
+    
+    // Load live total bookings count
+    const countEl = document.getElementById('total-bookings-count');
+    const realCount = localStorage.getItem('totalBookings') || "1248";
+    // Format with commas
+    countEl.innerText = parseInt(realCount).toLocaleString();
+    
+    // Sync Total Bookings count
+    const totalBkEl = document.getElementById('total-bookings-count');
+    function syncAdminKPIs() {
+        const allBookings = JSON.parse(localStorage.getItem('dd_bookings')) || [];
+        const myBookings = allBookings.filter(b => b.templeKey === adminContext);
+        const baseline = parseInt(localStorage.getItem('totalBookings') || '1248');
+        if (totalBkEl) totalBkEl.textContent = (myBookings.length + baseline).toLocaleString();
+        
+        renderAdminBookings();
+        renderAdminNotifications();
+        updateAdminParkingKPI();
+        updateAdminParking();
+        renderAdminEmergencies();
+        renderAdminFeedback();
+        
+        // Update Dashboard Summary Table
+        const summaryEl = document.getElementById('dashboard-bookings-summary');
+        if (summaryEl) {
+            summaryEl.innerHTML = myBookings.slice(0, 5).map(b => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="px-6 py-3 font-bold text-indigo-900 text-xs">#${b.id}</td>
+                    <td class="px-6 py-3 text-slate-600 text-xs">${b.time}</td>
+                    <td class="px-6 py-3 text-center text-slate-600 text-xs font-bold">${b.pilgrims}</td>
+                    <td class="px-6 py-3 text-right">
+                        <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">Confirmed</span>
+                    </td>
+                </tr>
+            `).join('') || '<tr><td colspan="4" class="px-6 py-8 text-center text-slate-400 text-xs">No recent bookings.</td></tr>';
+        }
+        
+        // Auto-Toast for NEW SOS alerts
+        const notes = JSON.parse(localStorage.getItem('globalNotifications')) || [];
+        const latestSOS = notes.find(n => n.type === 'alert' && n.targetContext === adminContext);
+        if (latestSOS && !window._lastSOSId && (Date.now() - new Date(latestSOS.time).getTime() < 10000)) {
+             window._lastSOSId = latestSOS.id;
+             showAdminToast(latestSOS.msg);
+        }
+    }
+    
+    syncAdminKPIs();
+    // Live polling for a "linked" experience
+    setInterval(syncAdminKPIs, 5000);
+
+    // Load Temple Map based on context
+    const mapInfos = {
+        tirupati: {
+            title: 'Tirupati Venkateswara Swamy Temple',
+            subtitle: 'Tirumala, Andhra Pradesh — Live Map View',
+            badge: 'Tirupati Venkateswara Swamy',
+            src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3877.3!2d79.3490!3d13.6830!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a4d4b9d3d3b3c3d%3A0x1!2sTirupati+Venkateswara+Temple!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin',
+            mapsUrl: 'https://www.google.com/maps/search/Tirupati+Venkateswara+Temple,+Tirumala,+Andhra+Pradesh'
+        },
+        manjunatha: {
+            title: 'Dharmasthala Sri Manjunatha Temple',
+            subtitle: 'Dharmasthala, Karnataka — Live Map View',
+            badge: 'Dharmasthala Manjunatha Temple',
+            src: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5!2d75.3791!3d12.9600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba4702b59e6a8a5%3A0xb618f39b57e6e0f7!2sDharmasthala+Temple!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin',
+            mapsUrl: 'https://www.google.com/maps/search/Dharmasthala+Manjunatha+Temple,+Karnataka'
+        }
+    };
+
+    const mapCtx = mapInfos[adminContext] || mapInfos['tirupati'];
+    document.getElementById('admin-temple-map').src = mapCtx.src;
+    document.getElementById('map-section-title').textContent = mapCtx.title;
+    document.getElementById('map-section-subtitle').textContent = mapCtx.subtitle;
+    document.getElementById('map-badge-text').textContent = mapCtx.badge;
+    document.getElementById('map-open-link').href = mapCtx.mapsUrl;
+    
+    // Live polling for SOS incidents across open contexts
+    let seenAlertIds = new Set();
+    const initialNotes = JSON.parse(localStorage.getItem('globalNotifications')) || [];
+    initialNotes.forEach(n => { if (n.id) seenAlertIds.add(n.id); });
+    
+    setInterval(() => {
+        let currentNotes = JSON.parse(localStorage.getItem('globalNotifications')) || [];
+        let hasNew = false;
+        
+        currentNotes.forEach(n => {
+            if (n.type === 'alert' && n.targetContext === adminContext && n.id && !seenAlertIds.has(n.id)) {
+                hasNew = true;
+                seenAlertIds.add(n.id);
+                showAdminToast(n.msg);
+                
+                // Play an alert sound automatically if supported without extreme interaction rules
+                try {
+                	const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU'); 
+                	audio.play().catch(e => {}); 
+                } catch(e) {}
+            }
+        });
+        
+        if (hasNew) {
+            renderAdminNotifications();
+            
+            // Only re-render emergencies if panel might be open
+            const emergencyPanel = document.getElementById('emergency-panel');
+            if (emergencyPanel && !emergencyPanel.classList.contains('hidden')) {
+                renderAdminEmergencies();
+            }
+        }
+    }, 1500);
+});
+
+function showAdminToast(msg) {
+    const toast = document.createElement('div');
+    toast.className = 'fixed top-6 right-6 lg:right-10 bg-red-600 text-white px-6 py-4 rounded-xl shadow-2xl font-bold flex items-center gap-4 z-[1000] border-2 border-red-400 transition-all duration-500 ease-out translate-x-[120%] opacity-0';
+    toast.innerHTML = `<span class="material-symbols-outlined text-[32px] animate-pulse">warning</span> <div class="flex-1"><p class="text-[10px] uppercase tracking-wider opacity-80 mb-0.5">Critical SOS Incident</p><p class="text-sm font-black leading-tight">${msg.split('SOS: ')[1] || msg}</p></div>`;
+    document.body.appendChild(toast);
+    
+    // Animate in
+    setTimeout(() => {
+        toast.classList.remove('translate-x-[120%]', 'opacity-0');
+        toast.classList.add('translate-x-0', 'opacity-100');
+    }, 50);
+    
+    // Animate out
+    setTimeout(() => {
+        toast.classList.remove('translate-x-0', 'opacity-100');
+        toast.classList.add('translate-x-[120%]', 'opacity-0');
+        setTimeout(() => toast.remove(), 500);
+    }, 7000);
+}
+
+
+// Keep confirm/delete for dd_bookings
+function confirmBooking(id) {
+    let bookings = JSON.parse(localStorage.getItem('dd_bookings') || '[]');
+    const idx = bookings.findIndex(b => b.id === id);
+    if (idx > -1) { bookings[idx].status = 'Confirmed'; localStorage.setItem('dd_bookings', JSON.stringify(bookings)); renderAdminBookings(); }
+}
+
+function deleteBooking(id) {
+    if (!confirm('Delete this booking?')) return;
+    let bookings = JSON.parse(localStorage.getItem('dd_bookings') || '[]');
+    bookings = bookings.filter(b => b.id !== id);
+    localStorage.setItem('dd_bookings', JSON.stringify(bookings));
+    renderAdminBookings();
+}
+
+
+// --- TOOLTIP LOGIC ---
+let tooltipTimeout;
+function showGlobalTooltip(e, text) {
+    const tooltipEl = document.getElementById('global-tooltip');
+    if (!tooltipEl) return;
+    tooltipEl.innerText = text;
+    tooltipEl.style.opacity = '1';
+    tooltipEl.style.left = e.clientX + 'px';
+    tooltipEl.style.top = e.clientY + 'px';
+    clearTimeout(tooltipTimeout);
+}
+
+function hideGlobalTooltip() {
+    const tooltipEl = document.getElementById('global-tooltip');
+    if (!tooltipEl) return;
+    tooltipTimeout = setTimeout(() => { tooltipEl.style.opacity = '0'; }, 100);
+}
+
+function handleAreaChartHover(e) {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = x / rect.width;
+    
+    let time = "06:00 AM";
+    let vol = "Low Crowd";
+    
+    if (percentage > 0.8) { time = "10:00 PM"; vol = "Minimal"; }
+    else if (percentage > 0.6) { time = "06:00 PM"; vol = "Medium"; }
+    else if (percentage > 0.4) { time = "02:00 PM"; vol = "High Rush"; }
+    else if (percentage > 0.2) { time = "11:30 AM"; vol = "Peak Surge"; }
+    else if (percentage > 0.1) { time = "08:00 AM"; vol = "Medium"; }
+    
+    showGlobalTooltip(e, `Last 24hrs Focus: ${time} | Est. ${vol}`);
+}
+
+// --- ADMIN SIDEBAR PROFILE LOGIC ---
+function toggleAdminSettings() {
+    const dropdown = document.getElementById('admin-settings-dropdown');
+    dropdown.classList.toggle('hidden');
+}
+
+function logoutAdmin() {
+    localStorage.removeItem('adminContext');
+    window.location.href = '../updated_dashboard_with_expanded_temples_and_feedback/admin_login.html';
+}
+
+function openPersonalDetails() {
+    document.getElementById('admin-settings-dropdown').classList.add('hidden'); // close dropdown
+    const modal = document.getElementById('admin-profile-modal');
+    modal.classList.remove('hidden');
+    // Frame step animation
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.querySelector('.transform').classList.remove('scale-95');
+    }, 10);
+    
+    const adminContext = localStorage.getItem('adminContext');
+    let profile = JSON.parse(localStorage.getItem('adminProfile_' + adminContext));
+    if (!profile) {
+        if (adminContext === 'manjunatha') profile = { name: 'Dharmasthala Executive', age: 52, role: 'Chief Admin' };
+        else profile = { name: 'Tirupati Executive', age: 45, role: 'Super Admin' };
+    }
+    
+    document.getElementById('edit-admin-name').value = profile.name || '';
+    document.getElementById('edit-admin-age').value = profile.age || '';
+    document.getElementById('edit-admin-role').value = profile.role || '';
+}
+
+function closePersonalDetails() {
+    const modal = document.getElementById('admin-profile-modal');
+    modal.classList.add('opacity-0');
+    modal.querySelector('.transform').classList.add('scale-95');
+    setTimeout(() => modal.classList.add('hidden'), 300);
+}
+
+function savePersonalDetails() {
+    const adminContext = localStorage.getItem('adminContext');
+    const newProfile = {
+        name: document.getElementById('edit-admin-name').value.trim() || 'Admin',
+        age: document.getElementById('edit-admin-age').value,
+        role: document.getElementById('edit-admin-role').value.trim() || 'Admin'
+    };
+    
+    localStorage.setItem('adminProfile_' + adminContext, JSON.stringify(newProfile));
+    
+    document.getElementById('sidebar-admin-name').innerText = newProfile.name;
+    document.getElementById('sidebar-admin-role').innerText = newProfile.role;
+    
+    closePersonalDetails();
+}
+
+// --- NOTIFICATION LOGIC ---
+function toggleAdminNotifications() {
+    document.getElementById('admin-notifications-dropdown').classList.toggle('hidden');
+}
+
+function clearAdminNotifications() {
+    if(!confirm("Erase all logged activity?")) return;
+    localStorage.removeItem('globalNotifications');
+    renderAdminNotifications();
+}
+
+function renderAdminNotifications() {
+    const listEl = document.getElementById('admin-notifications-list');
+    const indicator = document.getElementById('admin-notif-indicator');
+    if (!listEl) return;
+    
+    let notes = JSON.parse(localStorage.getItem('globalNotifications')) || [];
+    const adminContext = localStorage.getItem('adminContext');
+    
+    // Cross-filtering
+    notes = notes.filter(n => {
+        if (n.type === 'alert' && n.targetContext) {
+            if (adminContext === 'manjunatha' && n.targetContext !== 'manjunatha') return false;
+            if (adminContext === 'tirupati' && n.targetContext !== 'tirupati') return false;
+        }
+        return true;
+    });
+    
+    if (notes.length === 0) {
+        listEl.innerHTML = '<div class="p-6 text-center text-slate-400 text-xs py-10 font-medium">No recent activity detected.</div>';
+        if(indicator) indicator.classList.add('hidden');
+        return;
+    }
+    
+    if(indicator) indicator.classList.remove('hidden');
+    
+    listEl.innerHTML = notes.map(n => {
+        let icon = 'notifications';
+        let bg = 'bg-slate-100/50';
+        let iconColor = 'text-slate-500';
+        
+        if (n.type === 'alert') { icon = 'warning'; bg = 'bg-red-50/80 border-b border-white'; iconColor = 'text-red-500'; }
+        else if (n.type === 'booking') { icon = 'confirmation_number'; bg = 'bg-emerald-50/80 border-b border-white'; iconColor = 'text-emerald-600'; }
+        else if (n.type === 'login') { icon = 'person'; bg = 'bg-indigo-50/80 border-b border-white'; iconColor = 'text-indigo-500'; }
+        
+        return `<div class="p-4 hover:bg-slate-100 transition-colors flex gap-3 items-start ${bg}">
+            <span class="material-symbols-outlined text-[18px] ${iconColor} mt-0.5">${icon}</span>
+            <div class="flex-1">
+                <p class="text-[11px] font-bold text-slate-700 leading-snug">${n.msg}</p>
+                <p class="text-[9px] text-slate-400 font-bold mt-1 tracking-wider uppercase">${n.time}</p>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function renderAdminEmergencies() {
+    const listEl = document.getElementById('ep-emergency-list');
+    const zoneLabel = document.getElementById('ep-zone-label');
+    const statusLabel = document.getElementById('ep-status-label');
+    if (!listEl) return;
+    
+    const adminContext = localStorage.getItem('adminContext');
+    const jurisdiction = adminContext === 'manjunatha' ? 'Dharmasthala Jurisdiction' : 'Tirupati Jurisdiction';
+    if(zoneLabel) zoneLabel.textContent = jurisdiction;
+    
+    let allNotes = JSON.parse(localStorage.getItem('globalNotifications')) || [];
+    
+    const alerts = allNotes.filter(n => {
+        if (n.type !== 'alert') return false;
+        if (adminContext === 'manjunatha' && n.targetContext !== 'manjunatha') return false;
+        if (adminContext === 'tirupati' && n.targetContext !== 'tirupati') return false;
+        return true;
+    });
+    
+    if (alerts.length === 0) {
+        if(statusLabel) statusLabel.textContent = 'All Clear — No Active Incidents';
+        listEl.innerHTML = `<div class="p-8 text-center border border-dashed border-slate-200 rounded-2xl bg-white">
+            <span class="material-symbols-outlined text-4xl text-green-400 mb-3 block">check_circle</span>
+            <p class="font-bold text-slate-600">No Active Emergencies</p>
+            <p class="text-xs text-slate-400 mt-1">All systems normal in ${jurisdiction}</p>
+        </div>`;
+        return;
+    }
+    
+    if(statusLabel) statusLabel.textContent = `${alerts.length} Active Incident${alerts.length > 1 ? 's' : ''} — Immediate Action Required`;
+    listEl.innerHTML = alerts.map((a, i) => {
+        let coordsLoc = a.msg.split(' at ')[1] || 'Unknown Origin';
+        let alertType = a.msg.split('SOS: ')[1]?.split(' at ')[0] || 'Unidentified Event';
+        
+        let mapUrl = '';
+        let navBtn = '';
+        
+        if (a.lat && a.lon) {
+            mapUrl = `https://maps.google.com/maps?q=${a.lat},${a.lon}&z=16&output=embed`;
+            navBtn = `<a href="https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lon}" target="_blank" class="text-[10px] bg-indigo-600 font-bold text-white hover:bg-indigo-700 px-4 py-2 rounded-lg transition-colors uppercase tracking-wider shadow-sm flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">navigation</span> Start GPS Route</a>`;
+        } else {
+            mapUrl = adminContext === 'manjunatha' ? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15555.20!2d75.3700!3d12.9600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU3JzM2LjAiTiA3NcKwMjInMTIuMCJF!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin' : 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15516.43!2d79.3395!3d13.6832!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQwJzU5LjUiTiA3OcKwMjAnMjIuMiJF!5e0!3m2!1sen!2sin!4v1699000000000!5m2!1sen!2sin';
+            navBtn = `<button onclick="alert('Dispatching secondary enforcement...')" class="text-[10px] font-bold text-red-800 hover:text-red-900 border-b border-transparent hover:border-red-900">Escalate Situation</button>`;
+        }
+        
+        return `<div class="p-4 bg-red-50 border border-red-200 rounded-xl flex flex-col gap-3 group shadow-sm transition-all hover:shadow-md">
+            <div class="flex items-center justify-between">
+                <span class="bg-red-600 text-white text-[10px] uppercase font-black tracking-wider px-2 py-1 rounded shadow-sm flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-white opacity-90 animate-pulse"></span> ${alertType}</span>
+                <span class="text-[9px] text-red-500 font-bold tracking-wider">${a.time.split(',')[1] || a.time}</span>
+            </div>
+            
+            <div class="flex gap-4 items-start">
+                <div class="w-24 h-24 rounded-lg overflow-hidden border border-red-200/60 shadow-inner flex-shrink-0 relative">
+                    <iframe src="${mapUrl}" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
+                    <div class="absolute inset-0 border-2 border-red-500 border-opacity-40 rounded-lg pointer-events-none animate-pulse"></div>
+                </div>
+                <div class="flex-1 flex flex-col gap-1">
+                    <p class="text-xs font-bold text-slate-700 leading-tight">Live Alert Location</p>
+                    <p class="text-[10px] font-medium text-slate-600 flex flex-wrap gap-1 leading-normal mb-1">
+                        ${coordsLoc}
+                    </p>
+                    <p class="text-[9px] text-red-500 font-bold uppercase tracking-widest mt-auto"><span class="ext-red-600 material-symbols-outlined text-[10px]">cell_tower</span> Security Tracking Active</p>
+                </div>
+            </div>
+            
+            <div class="pt-3 border-t border-red-200 flex justify-between items-center opacity-85 group-hover:opacity-100 transition-opacity">
+                <button onclick="resolveEmergency(${i})" class="text-[10px] font-bold text-red-600 hover:bg-red-100/80 px-4 py-2 rounded-lg transition-colors uppercase tracking-wider border border-red-200 shadow-sm bg-red-100/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">done_all</span> Mark Resolved</button>
+                ${navBtn}
+            </div>
+        </div>`;
+    }).join('');
+}
+
+function resolveEmergency(filterIndex) {
+    if(!confirm("Mark this incident as securely resolved? This removes it from live tracking.")) return;
+    
+    const adminContext = localStorage.getItem('adminContext');
+    let allNotes = JSON.parse(localStorage.getItem('globalNotifications')) || [];
+    
+    const alerts = allNotes.filter(n => {
+        if (n.type !== 'alert') return false;
+        if (adminContext === 'manjunatha' && n.targetContext !== 'manjunatha') return false;
+        if (adminContext === 'tirupati' && n.targetContext !== 'tirupati') return false;
+        return true;
+    });
+    
+    const targetAlert = alerts[filterIndex];
+    if (targetAlert) {
+        const globalIndex = allNotes.indexOf(targetAlert);
+        if (globalIndex > -1) {
+            allNotes.splice(globalIndex, 1);
+            localStorage.setItem('globalNotifications', JSON.stringify(allNotes));
+            renderAdminEmergencies();
+            renderAdminNotifications();
+        }
+    }
+}
+
+// ===== EMERGENCY PANEL LOGIC =====
+function openEmergencyPanel() {
+    const panel = document.getElementById('emergency-panel');
+    panel.classList.remove('hidden');
+    panel.classList.add('flex');
+    renderAdminEmergencies();
+}
+
+function closeEmergencyPanel() {
+    const panel = document.getElementById('emergency-panel');
+    panel.classList.add('hidden');
+    panel.classList.remove('flex');
+}
+
+// ===== REPORTS PANEL LOGIC =====
+function openReportsPanel() {
+    const panel = document.getElementById('reports-panel');
+    panel.classList.remove('hidden');
+    panel.classList.add('flex');
+    renderReportsPanel();
+}
+
+function closeReportsPanel() {
+    const panel = document.getElementById('reports-panel');
+    panel.classList.add('hidden');
+    panel.classList.remove('flex');
+}
+
+function closePanelIfBg(e, id) {
+    if (e.target === document.getElementById(id)) {
+        document.getElementById(id).classList.add('hidden');
+        document.getElementById(id).classList.remove('flex');
+    }
+}
+
+function renderReportsPanel() {
+    const adminContext = localStorage.getItem('adminContext');
+    const templeName = adminContext === 'manjunatha' ? 'Sri Dharmasthala Manjunatha' : 'Tirupati Venkateswara Swamy';
+    
+    // Header
+    document.getElementById('reports-temple-title').textContent = templeName + ' — Report';
+    document.getElementById('reports-timestamp').textContent = 'Generated: ' + new Date().toLocaleString('en-IN', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+    // Pull data
+    const allNotes = JSON.parse(localStorage.getItem('globalNotifications')) || [];
+    const allBookings = JSON.parse(localStorage.getItem('dd_bookings')) || [];
+    const totalBookingsRaw = parseInt(localStorage.getItem('totalBookings') || '1248');
+    const crowdLevel = localStorage.getItem('crowd_' + adminContext) || 'Medium';
+    const parkingInfo = (typeof parkingData !== 'undefined') ? parkingData[adminContext] : null;
+
+    // Context filter
+    const myBookings = allBookings.filter(b => b.templeKey === adminContext);
+
+    const myAlerts = allNotes.filter(n => n.type === 'alert' && n.targetContext === adminContext);
+    const myLogins = allNotes.filter(n => n.type === 'login');
+
+    // KPIs
+    document.getElementById('rpt-total-bookings').textContent = myBookings.length || totalBookingsRaw.toLocaleString();
+    document.getElementById('rpt-sos-count').textContent = myAlerts.length;
+    document.getElementById('rpt-logins').textContent = myLogins.length;
+
+    // Booking cards
+    const confirmed = myBookings.filter(b => b.status === 'Confirmed').length;
+    const pending = myBookings.filter(b => b.status === 'Pending').length;
+    const online = myBookings.filter(b => b.type === 'Online').length;
+    const offline = myBookings.filter(b => b.type === 'Offline').length;
+    document.getElementById('rpt-booking-cards').innerHTML = [
+        { label: 'Confirmed', value: confirmed, color: 'emerald', icon: 'check_circle' },
+        { label: 'Pending', value: pending, color: 'orange', icon: 'pending' },
+        { label: 'Online', value: online, color: 'indigo', icon: 'smartphone' },
+        { label: 'Offline / Counters', value: offline, color: 'slate', icon: 'storefront' }
+    ].map(card => `
+        <div class="bg-${card.color}-50 border border-${card.color}-100 rounded-xl p-3 flex items-center gap-3">
+            <span class="material-symbols-outlined text-${card.color}-600 text-[22px]">${card.icon}</span>
+            <div>
+                <p class="text-xl font-black text-${card.color}-700">${card.value}</p>
+                <p class="text-[10px] font-bold text-${card.color}-500 uppercase tracking-wider">${card.label}</p>
+            </div>
+        </div>`).join('');
+
+    // Booking timeline (recent 5)
+    const recentBk = myBookings.slice(0, 5);
+    document.getElementById('rpt-booking-timeline').innerHTML = recentBk.length === 0
+        ? '<p class="text-xs text-slate-400 text-center py-4">No bookings recorded for this temple yet.</p>'
+        : recentBk.map(b => `
+        <div class="flex items-center gap-3 py-2 border-b border-dashed border-slate-100 last:border-0">
+            <span class="material-symbols-outlined text-[16px] text-indigo-400">confirmation_number</span>
+            <div class="flex-1">
+                <p class="text-xs font-bold text-slate-700">#${b.id} · ${b.time}</p>
+                <p class="text-[10px] text-slate-400">${b.qty} pilgrim(s) · ${b.type}</p>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${b.status === 'Confirmed' ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}">${b.status}</span>
+        </div>`).join('');
+
+    // Crowd ring
+    const crowdColors = { Low: { bg: 'bg-green-100', text: 'text-green-700', barLow: '100%', barMed: '0%', barHigh: '0%' }, Medium: { bg: 'bg-orange-100', text: 'text-orange-700', barLow: '40%', barMed: '100%', barHigh: '0%' }, High: { bg: 'bg-red-100', text: 'text-red-700', barLow: '20%', barMed: '60%', barHigh: '100%' } };
+    const cc = crowdColors[crowdLevel] || crowdColors['Medium'];
+    const circle = document.getElementById('rpt-crowd-circle');
+    circle.className = `w-16 h-16 rounded-full flex items-center justify-center text-2xl font-black shadow-inner ${cc.bg} ${cc.text}`;
+    circle.textContent = crowdLevel === 'Low' ? '😌' : crowdLevel === 'Medium' ? '😐' : '🔴';
+    document.getElementById('rpt-crowd-label').textContent = crowdLevel;
+    document.getElementById('rpt-crowd-label').className = `text-lg font-black ${cc.text}`;
+    document.getElementById('rpt-bar-low').style.width = cc.barLow;
+    document.getElementById('rpt-bar-med').style.width = cc.barMed;
+    document.getElementById('rpt-bar-high').style.width = cc.barHigh;
+
+    // SOS incidents
+    document.getElementById('rpt-sos-list').innerHTML = myAlerts.length === 0
+        ? '<div class="p-5 text-center text-xs text-slate-400 font-medium">✅ No SOS incidents recorded.</div>'
+        : myAlerts.map(a => `
+        <div class="flex items-start gap-3 px-5 py-3">
+            <span class="material-symbols-outlined text-red-500 text-[18px] mt-0.5">warning</span>
+            <div class="flex-1">
+                <p class="text-xs font-bold text-slate-700">${a.msg}</p>
+                <p class="text-[9px] text-slate-400 mt-0.5 uppercase tracking-wider">${a.time}</p>
+            </div>
+        </div>`).join('');
+
+    // Parking
+    if (parkingInfo && parkingInfo.areas) {
+        document.getElementById('rpt-parking-status').innerHTML = parkingInfo.areas.map(area => {
+            const pct = Math.round((area.filled / area.capacity) * 100);
+            const barColor = pct > 85 ? 'bg-red-500' : pct > 50 ? 'bg-orange-500' : 'bg-emerald-500';
+            return `<div>
+                <div class="flex justify-between items-center mb-1">
+                    <p class="text-xs font-bold text-slate-700">${area.name}</p>
+                    <p class="text-[10px] font-bold text-slate-500">${area.filled}/${area.capacity} (${pct}%)</p>
+                </div>
+                <div class="h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full ${barColor} rounded-full transition-all" style="width: ${pct}%"></div>
+                </div>
+            </div>`;
+        }).join('');
+    } else {
+        document.getElementById('rpt-parking-status').innerHTML = '<p class="text-xs text-slate-400">Parking data not available.</p>';
+    }
+}
+
+function exportReport() {
+    const adminContext = localStorage.getItem('adminContext');
+    const templeName = adminContext === 'manjunatha' ? 'Sri Dharmasthala Manjunatha' : 'Tirupati Venkateswara Swamy';
+    const allBookings = JSON.parse(localStorage.getItem('dd_bookings')) || [];
+    const myBookings = allBookings.filter(b => b.templeKey === adminContext);
+    const allNotes = JSON.parse(localStorage.getItem('globalNotifications')) || [];
+    const myAlerts = allNotes.filter(n => n.type === 'alert' && n.targetContext === adminContext);
+    const crowdLevel = localStorage.getItem('crowd_' + adminContext) || 'Medium';
+
+    const lines = [
+        `DIVYA DARSHAN — ADMIN REPORT`,
+        `Temple: ${templeName}`,
+        `Generated: ${new Date().toLocaleString()}`,
+        ``,
+        `=== SUMMARY ===`,
+        `Total Bookings (this temple): ${myBookings.length}`,
+        `Confirmed: ${myBookings.filter(b => b.status === 'Confirmed').length}`,
+        `Pending: ${myBookings.filter(b => b.status === 'Pending').length}`,
+        `Online: ${myBookings.filter(b => b.type === 'Online').length}`,
+        `Current Crowd Level: ${crowdLevel}`,
+        `SOS Incidents: ${myAlerts.length}`,
+        ``,
+        `=== RECENT BOOKINGS ===`,
+        ...myBookings.map(b => `#${b.id} | ${b.temple} | ${b.time} | ${b.qty} people | ${b.type} | ${b.status}`),
+        ``,
+        `=== SOS INCIDENT LOG ===`,
+        ...myAlerts.map(a => `${a.time} | ${a.msg}`),
+    ];
+
+    const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${adminContext}_admin_report_${new Date().toISOString().split('T')[0]}.txt`;
+    link.click();
+    URL.revokeObjectURL(url);
+}
+</script>
+</body></html>

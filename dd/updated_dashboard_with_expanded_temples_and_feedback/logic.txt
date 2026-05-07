@@ -1,0 +1,46 @@
+// Temple Detail Routing Logic
+function openTempleDetails(cardElement) {
+    const imgEl = cardElement.querySelector('img');
+    const imgSrc = imgEl ? imgEl.src : '';
+    const nameEl = cardElement.querySelector('h3') || cardElement.querySelector('.font-bold');
+    const templeName = nameEl ? nameEl.innerText : 'Divya Temple';
+    
+    // Parse crowd level
+    let crowdEl = cardElement.querySelector('.text-red-600, .text-orange-600, .text-green-600');
+    let crowdText = crowdEl ? crowdEl.innerText : 'MEDIUM';
+    
+    // Parse wait time
+    let waitEl = cardElement.querySelector('.text-right p.font-bold') || cardElement.querySelector('.text-on-surface.font-bold');
+    let waitTime = waitEl ? waitEl.innerText : '~ 45 Mins';
+
+    // Update Details DOM elements
+    document.getElementById('detail-img').src = imgSrc;
+    document.getElementById('detail-name').innerText = templeName;
+    document.getElementById('detail-loc').innerText = templeName + ", India";
+    document.getElementById('detail-wait').innerText = waitTime;
+    
+    const badgeBg = document.getElementById('detail-badge-bg');
+    const badgeText = document.getElementById('detail-badge-text');
+    const badgeIcon = document.getElementById('detail-badge-icon');
+    const waitBar = document.getElementById('detail-wait-bar');
+    
+    badgeBg.className = "px-6 py-3 rounded-full flex flex-col items-center backdrop-blur-md border border-opacity-50";
+    badgeText.className = "font-extrabold text-lg text-white";
+    badgeIcon.className = "material-symbols-outlined text-white mb-1";
+    waitBar.className = "h-full rounded-full relative overflow-hidden";
+    
+    badgeText.innerText = crowdText.toUpperCase();
+    
+    if (crowdText.toUpperCase().includes('HIGH') || crowdText.toUpperCase().includes('CROWDED')) {
+        badgeBg.classList.add('bg-red-500/80', 'border-red-400');
+        waitBar.classList.add('bg-red-500', 'w-[90%]');
+    } else if (crowdText.toUpperCase().includes('LOW')) {
+        badgeBg.classList.add('bg-green-500/80', 'border-green-400');
+        waitBar.classList.add('bg-green-500', 'w-[20%]');
+    } else {
+        badgeBg.classList.add('bg-orange-500/80', 'border-orange-400');
+        waitBar.classList.add('bg-orange-500', 'w-[60%]');
+    }
+    
+    showView('view-temple-details');
+}
